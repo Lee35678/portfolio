@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SafeSign PhysicalAI · 이동혁</title>
+<meta name="description" content="크레인 수신호 7종 판정 비전 파이프라인 · 이동혁 담당 범위와 설계·평가·트러블슈팅">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="who" href="../index.html" style="text-decoration:none">이동혁</a>
+    <nav aria-label="목차">
+      <a href="#role">역할</a>
+      <a href="#design">설계</a>
+      <a href="#result">결과</a>
+      <a href="#trouble">트러블슈팅</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <p class="crumb"><a href="../index.html">← 전체 포트폴리오</a></p>
+    <div class="page-head">
+      <span class="label">대표 프로젝트 01 · 2026.09 – 10</span>
+      <h1>SafeSign PhysicalAI</h1>
+      <p class="one">크레인 수신호 7종을 카메라로 판정하고, 결과를 AI Hand(로봇 손)·micro:bit·picar(주행 로봇)의 물리 동작으로 돌려주는 교육 시스템입니다.</p>
+      <div class="linkrow">
+        <a class="btn" href="https://github.com/Lee35678/SafeSign_PhysicalAI/tree/dev">GitHub</a>
+        <a class="btn" href="https://github.com/Lee35678/SafeSign_PhysicalAI/blob/dev/document/12_AI%EB%B9%84%EC%A0%84_%EC%A7%84%ED%96%89%EB%B3%B4%EA%B3%A0%EC%84%9C.md">AI 비전 진행보고서</a>
+        <a class="btn" href="https://github.com/Lee35678/SafeSign_PhysicalAI/blob/dev/document/05_%EB%AA%A8%EB%8D%B8%EC%B9%B4%EB%93%9C.md">모델 카드</a>
+        <a class="btn" href="https://github.com/Lee35678/SafeSign_PhysicalAI/blob/dev/document/06_%ED%85%8C%EC%8A%A4%ED%8A%B8%C2%B7%ED%8F%89%EA%B0%80%EB%A6%AC%ED%8F%AC%ED%8A%B8.md">테스트·평가 리포트</a>
+      </div>
+    </div>
+
+    <div class="rolebox" id="role">
+      <div class="role-top">
+        <div><span class="role-k">TEAM</span><b>4인 팀</b></div>
+        <div><span class="role-k">MY ROLE</span><b>AI 비전 파이프라인 · 판정 로직</b><p>평가 · 시스템 통합 · 웹 백엔드 판정 로직</p></div>
+        <div><span class="role-k">MY COMMITS</span><b>32개 / 팀 전체 186개</b><p>원격 브랜치 9개 · 병합 30회</p></div>
+      </div>
+      <div>
+        <span class="role-k">MY CONTRIBUTION</span>
+        <ul class="contrib">
+          <li>비전 파이프라인 설계·학습: MediaPipe → 정규화·관절 특징 → SVM → 소속 게이트 → 3연속 확정</li>
+          <li>데이터 분할 전략: 세션 단위 GroupKFold로 고정</li>
+          <li>촬영·평가 도구: 촬영 스크립트, 테이크 단위 KPI 평가 스크립트</li>
+          <li>라즈베리파이 5 CSI 카메라 실시간 판정 연동</li>
+          <li>판정 성능 KPI 5개 측정과 보고</li>
+          <li>웹 백엔드 판정 타이밍·시행 로그·장치 호출 순서</li>
+          <li>회원·결과 DB(Supabase), 회사 웹사이트 제안·구현</li>
+          <li>팀 저장소 초기 구성(서비스 4개 뼈대·스키마 4종), 1차 통합 병합</li>
+        </ul>
+      </div>
+      <p class="others-did">팀원이 맡은 부분 · AI Hand·micro:bit 제어, picar 주행, 공개 데이터 확보(27,735건), 교육장 화면 첫 구현, 판정 지연 측정, 최종 평가 촬영, vision 코드 리팩토링·테스트 정비</p>
+    </div>
+  </div>
+
+  <div class="wrap" style="padding-block:40px 56px">
+    <article class="feature">
+        <div class="block">
+          <h3>협업 방식</h3>
+          <p style="margin-bottom:6px">서비스별 브랜치에서 개발해 dev 브랜치로 모았고, 서비스 사이 데이터 형식은 코드보다 먼저 계약으로 정했습니다.</p>
+      <div class="collab" style="margin-top:0">
+        <div class="collab-item">
+          <h4>계약을 먼저 정하고 나눠서 개발</h4>
+          <p>팀 저장소를 처음 만들 때 서비스 4개의 뼈대와 서비스 사이에 주고받을 데이터 형식(JSON 스키마 4종)부터 정했습니다. 덕분에 4명이 각자 다른 서비스를 동시에 만들 수 있었습니다.</p>
+        </div>
+        <div class="collab-item">
+          <h4>서비스별 브랜치와 통합 브랜치</h4>
+          <p>vision·web·actuation·picar·data를 각자 기능 브랜치에서 만들고 dev 브랜치에 모았습니다. 4개 서비스의 1차 통합 병합을 맡았습니다.</p>
+        </div>
+        <div class="collab-item">
+          <h4>테스트로 작업을 넘겨받기</h4>
+          <p>팀원이 응답 판정 기준표와 인수 테스트 22개를 먼저 쓰고, 그 테스트를 통과하는 코드를 구현했습니다. 목표일보다 이틀 빠르게 병합됐습니다.</p>
+        </div>
+        <div class="collab-item">
+          <h4>실험은 운영 코드와 분리</h4>
+          <p>딥러닝 비교 연구는 별도 브랜치에서 진행하고 dev에 병합하지 않았습니다. 결론만 문서로 옮겨 운영 코드에 섞이지 않게 했습니다.</p>
+        </div>
+        <div class="collab-item">
+          <h4>결정은 근거와 함께 기록</h4>
+          <p>회의 자료마다 선택지·근거 수치·권고를 붙였고, 안건별 결정권자를 정해 결정을 기록했습니다. 화면 디자인을 바꿀 때도 화면 흐름과 기능 계약은 그대로 두어 팀원이 만든 테스트가 계속 통과하게 했습니다.</p>
+        </div>
+        <div class="collab-item">
+          <h4>대학 시절 저장소 정리</h4>
+          <p>2026년 10월에 대학 시절 저장소를 포함한 30개의 코드를 다시 읽고 README를 정리했습니다. 코드에 남아 있던 비밀 정보도 점검했습니다. 이 작업에는 Claude Code를 함께 썼습니다.</p>
+        </div>
+      </div>
+
+        </div>
+
+        <div class="block" id="design">
+          <h3>판정 흐름과 맡은 범위</h3>
+          <div class="pipe-scroll">
+            <ol class="pipe">
+              <li><div class="n">1</div><div class="t">카메라</div><div class="d">Camera Module 3 · RPi5 CSI</div></li>
+              <li class="mine"><div class="n">2</div><div class="t">손 랜드마크</div><div class="d">MediaPipe 21점 · LIVE_STREAM</div></li>
+              <li class="mine"><div class="n">3</div><div class="t">정규화 · 특징</div><div class="d">좌우 미러링 · 회전 정렬 · 관절 특징 23차원</div></li>
+              <li class="mine"><div class="n">4</div><div class="t">분류</div><div class="d">SVM(RBF) + Platt 확률 보정</div></li>
+              <li class="mine"><div class="n">5</div><div class="t">거부 · 확정</div><div class="d">소속 게이트 · τ 0.75 · 3연속 일치</div></li>
+              <li class="mine"><div class="n">6</div><div class="t">교육 상태 판정</div><div class="d">web 백엔드 · 시행 로그</div></li>
+              <li><div class="n">7</div><div class="t">물리 피드백</div><div class="d">picar(RPi4B, Wi-Fi) · AI Hand · micro:bit</div></li>
+            </ol>
+          </div>
+          <div class="pipe-legend"><span><i class="swatch mine"></i>직접 설계·구현한 단계</span><span><i class="swatch"></i>팀원 담당 또는 하드웨어</span></div>
+        </div>
+
+        <div class="block">
+          <h3>기술을 고른 이유</h3>
+          <div class="decisions" role="table" aria-label="주요 기술 결정">
+            <div class="dec head" role="row"><span role="columnheader">선택</span><span role="columnheader">이유</span><span role="columnheader">버린 대안</span></div>
+            <div class="dec" role="row"><b role="cell">손 랜드마크 + SVM</b><p class="why" role="cell">데이터가 공개 사진 약 2.8만 건뿐이고, 판정이 라즈베리파이 CPU에서 실시간으로 돌아야 했습니다. 왜 그렇게 판정했는지 설명할 수 있어야 했습니다. 전체 학습이 16초라 GPU 없이 로컬에서 바로 다시 학습할 수 있었습니다.</p><span class="alt" role="cell">이미지 분류 CNN</span></div>
+            <div class="dec" role="row"><b role="cell">세션 단위 분할</b><p class="why" role="cell">공개 데이터 97.7%가 연속 촬영 세션에 묶여 있어, 무작위로 나누면 같은 장면이 학습과 시험에 함께 들어갑니다.</p><span class="alt" role="cell">무작위 5겹 분할</span></div>
+            <div class="dec" role="row"><b role="cell">공식 판정 규칙 = 3연속</b><p class="why" role="cell">실제 운영과 같은 규칙으로 재야 의미가 있습니다. 최빈값보다 미판정률이 2.9%에서 6.7%로 불리해지는 쪽이었지만 이 규칙을 공식으로 택했습니다.</p><span class="alt" role="cell">최빈값 규칙</span></div>
+            <div class="dec" role="row"><b role="cell">일치율 = 목표 수신호 확률</b><p class="why" role="cell">코사인 유사도로는 다른 수신호를 해도 최악 95점이 나왔습니다. 확률로 바꾸니 최악 14점이 됐고, 화면의 75점이 판정 기준 τ 0.75와 같은 척도가 됐습니다.</p><span class="alt" role="cell">템플릿 코사인 유사도</span></div>
+          </div>
+        </div>
+
+        <div class="block" id="result">
+          <h3>측정 결과</h3>
+          <p>최종 측정은 학습에 쓰지 않은 팀원 3명의 촬영 210시도로 했습니다. 측정 규칙은 결과를 보기 전에 정했고, 이 데이터로 모델이나 임계값을 고르지 않았습니다.</p>
+          <div class="kpi" role="table" aria-label="판정 성능 KPI">
+            <div class="kpi-row head" role="row">
+              <span role="columnheader">지표</span><span role="columnheader">측정값</span><span role="columnheader">목표</span><span role="columnheader">95% 신뢰구간과 목표 위치</span><span role="columnheader">판정</span>
+            </div>
+            <div class="kpi-row" role="row">
+              <span class="kpi-name" role="cell">정답률</span>
+              <span class="kpi-val" role="cell">95.2%</span>
+              <span class="kpi-goal" role="cell">≥ 92%</span>
+              <div class="scale" role="cell" aria-label="신뢰구간 91.5~97.4%, 목표 92%">
+                <div class="track"></div><div class="band" style="left:57.5%;width:29.5%"></div><div class="goal" style="left:60%"></div><div class="pt" style="left:76%"></div>
+                <span class="ax l">80%</span><span class="ax r">100%</span>
+              </div>
+              <span class="state hold" role="cell">잠정 달성</span>
+            </div>
+            <div class="kpi-row" role="row">
+              <span class="kpi-name" role="cell">오분류율</span>
+              <span class="kpi-val" role="cell">0.0%</span>
+              <span class="kpi-goal" role="cell">≤ 3%</span>
+              <div class="scale" role="cell" aria-label="95% 상한 1.8%, 목표 3%">
+                <div class="track"></div><div class="band" style="left:0;width:18%"></div><div class="goal" style="left:30%"></div><div class="pt" style="left:0%"></div>
+                <span class="ax l">0%</span><span class="ax r">10%</span>
+              </div>
+              <span class="state ok" role="cell">달성</span>
+            </div>
+            <div class="kpi-row" role="row">
+              <span class="kpi-name" role="cell">미판정률</span>
+              <span class="kpi-val" role="cell">4.8%</span>
+              <span class="kpi-goal" role="cell">≤ 5%</span>
+              <div class="scale" role="cell" aria-label="신뢰구간 2.6~8.5%, 목표 5%">
+                <div class="track"></div><div class="band" style="left:26%;width:59%"></div><div class="goal" style="left:50%"></div><div class="pt" style="left:48%"></div>
+                <span class="ax l">0%</span><span class="ax r">10%</span>
+              </div>
+              <span class="state hold" role="cell">잠정 달성</span>
+            </div>
+            <div class="kpi-row" role="row">
+              <span class="kpi-name" role="cell">Macro F1</span>
+              <span class="kpi-val" role="cell">0.974</span>
+              <span class="kpi-goal" role="cell">≥ 0.90</span>
+              <div class="scale" role="cell" aria-label="측정 0.974, 목표 0.90">
+                <div class="track"></div><div class="goal" style="left:50%"></div><div class="pt" style="left:87%"></div>
+                <span class="ax l">0.80</span><span class="ax r">1.00</span>
+              </div>
+              <span class="state ok" role="cell">달성</span>
+            </div>
+            <div class="kpi-row" role="row">
+              <span class="kpi-name" role="cell">치명 오분류<small>정지 신호 30시도</small></span>
+              <span class="kpi-val" role="cell">0건</span>
+              <span class="kpi-goal" role="cell">0건</span>
+              <div class="scale" role="cell" aria-label="95% 상한 11.4%, 목표 0건">
+                <div class="track"></div><div class="band" style="left:0;width:57%"></div><div class="goal" style="left:0%"></div><div class="pt" style="left:0%"></div>
+                <span class="ax l">0%</span><span class="ax r">20%</span>
+              </div>
+              <span class="state hold" role="cell">잠정 달성</span>
+            </div>
+            <div class="kpi-row" role="row">
+              <span class="kpi-name" role="cell">판정 지연 P95<small>판정 경로 구현 · 측정은 팀원</small></span>
+              <span class="kpi-val" role="cell">0.046s</span>
+              <span class="kpi-goal" role="cell">≤ 1.0s</span>
+              <div class="scale" role="cell" aria-label="95% 상한 0.065초, 목표 1.0초">
+                <div class="track"></div><div class="band" style="left:4.6%;width:1.9%"></div><div class="goal" style="left:100%"></div><div class="pt" style="left:4.6%"></div>
+                <span class="ax l">0s</span><span class="ax r">1.0s</span>
+              </div>
+              <span class="state ok" role="cell">달성</span>
+            </div>
+          </div>
+          <div class="kpi-legend"><span><i class="lp"></i>측정값</span><span><i class="lb"></i>95% 신뢰구간(Wilson)</span><span><i class="lg"></i>목표</span></div>
+          <div class="cond" aria-label="측정 조건">
+            <div><span>표본</span><b>210시도</b></div>
+            <div><span>평가 데이터</span><b>팀원 3명 · RPi5 CSI 카메라 촬영</b></div>
+            <div><span>학습 사용</span><b>사용 안 함</b></div>
+            <div><span>촬영 · 측정</span><b>2026-09-29 · 09-30</b></div>
+            <div><span>판정 규칙</span><b>3연속 일치 · 측정 전 고정</b></div>
+            <div><span>신뢰구간</span><b>Wilson 95% · 시도 독립 가정</b></div>
+          </div>
+          <p class="note">잠정 달성은 측정값이 목표를 넘었지만 신뢰구간 일부가 목표 밖에 걸친 경우입니다. 표본이 210시도라 이렇게 나눠 보고했습니다.</p>
+        </div>
+
+        <div class="block" id="trouble">
+          <h3>트러블슈팅</h3>
+          <ol class="cases">
+            <li class="case" id="case-split">
+              <span class="when">09.20 – 21</span>
+              <div>
+                <h4>정답률 <span class="num">98.81%</span>는 허수였다</h4>
+                <dl>
+                  <dt>원인</dt><dd>공개 데이터 27,735건 중 97.7%가 805개 연속 촬영 세션에 묶여 있었습니다. 무작위로 나누면 같은 장면으로 학습하고 시험하는 셈이었습니다.</dd>
+                  <dt>조치</dt><dd>파일명에서 세션 키를 만들어 세션 단위 GroupKFold를 기본 분할로 고정했습니다.</dd>
+                  <dt>결과</dt><dd>실제 실력 77.57%에서 다시 출발해, 좌표 63차원을 관절 특징 23차원으로 바꿔 88.68%까지 올렸습니다.</dd>
+                </dl>
+              </div>
+            </li>
+            <li class="case">
+              <span class="when">09.22</span>
+              <div>
+                <h4>웹캠 정답률 <span class="num">28.2%</span>, 틀린 건 모델이 아니라 측정 도구</h4>
+                <dl>
+                  <dt>원인</dt><dd>직접 만든 진단 도구가 키를 누른 뒤 다음 키까지 수백 프레임을 같은 라벨로 기록해, 손을 바꾸는 중간 프레임이 섞였습니다.</dd>
+                  <dt>조치</dt><dd>이전 모델로 같은 프레임을 다시 판정해(26.0%) 모델 변경이 원인이 아님을 먼저 확인하고, 카운트다운 뒤 3프레임만 찍는 촬영 도구를 새로 만들었습니다.</dd>
+                  <dt>결과</dt><dd>다시 찍은 105프레임 전부 정답이었습니다. 중간에 한 잘못된 진단도 보고서에 그대로 남겼습니다.</dd>
+                </dl>
+              </div>
+            </li>
+            <li class="case">
+              <span class="when">09.22</span>
+              <div>
+                <h4>모르는 손 모양을 확신하며 틀리는 문제</h4>
+                <dl>
+                  <dt>원인</dt><dd>분류기 확률은 7종 안에서 합이 1이라, 낯선 손도 가장 비슷한 클래스에 높은 값이 나옵니다. 한 클래스를 빼고 잰 측정에서 77.3%가 확신도 0.90 이상으로 오판됐습니다.</dd>
+                  <dt>조치</dt><dd>판정 뒤에 "그 클래스에 속하기는 하는가"를 보는 소속 게이트(클래스 중심 코사인, 클래스별 임계)를 추가했습니다.</dd>
+                  <dt>결과</dt><dd>모르는 자세 75.0% 차단, 정상 입력 오거부 2.9%. 7종이 아닌 자세의 19%가 아직 통과한다는 한계도 함께 기록했습니다.</dd>
+                </dl>
+              </div>
+            </li>
+            <li class="case">
+              <span class="when">09.22 – 23</span>
+              <div>
+                <h4>딥러닝으로 바꿔야 하나: 같은 조건 비교 연구</h4>
+                <dl>
+                  <dt>비교</dt><dd>합성 negative 클래스, Evidential Deep Learning(MLP), 관절 21개를 토큰으로 보는 HandFormer + EDL 5개 앙상블(Colab T4 178분)을 세션 단위 학습·검증·시험 분할로 운영 방식과 비교했습니다.</dd>
+                  <dt>결과</dt><dd>분류는 동률(운영 방식 97.28%, 딥러닝 96.94%), 처음 보는 손 거르기는 운영 방식이 앞섰습니다(AUC 0.968 대 0.934). 그래서 SVM + 소속 게이트를 유지했습니다.</dd>
+                  <dt>실수</dt><dd>연구 도중 딥러닝 설정을 KPI 촬영 데이터로 고른 것을 스스로 찾았습니다. 그 데이터로 고른 모델과 코드를 모두 지우고, 공개 데이터 안에서만 분할을 다시 짜서 비교를 처음부터 다시 했습니다.</dd>
+                </dl>
+              </div>
+            </li>
+            <li class="case">
+              <span class="when">09.29</span>
+              <div>
+                <h4>외부 촬영 <span class="num">61.4%</span>, 일부만 빼지 않고 전부 버렸다</h4>
+                <dl>
+                  <dt>원인</dt><dd>외부인 70시도 중 20테이크가 정의와 다른 손 모양이었습니다.</dd>
+                  <dt>조치</dt><dd>틀린 20테이크만 빼면 결과를 본 뒤 데이터를 고르는 셈이 됩니다. 팀 결정으로 전체를 폐기하고 팀원 3명이 RPi5 카메라로 210시도를 다시 찍었습니다.</dd>
+                  <dt>결과</dt><dd>새 데이터로 판정 성능 5개를 확정했습니다. 손을 오른쪽으로 기울이면 과하게 거부하는 새 약점도 찾아 기록했습니다.</dd>
+                </dl>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <div class="two">
+          <div class="block">
+            <h3>시스템 쪽 기여</h3>
+            <ul class="plain-list">
+              <li>장치 호출 순서를 바꿔, 판정 뒤 picar·micro:bit 반응이 약 0.85초 늦던 구조를 없앴습니다. 팀원이 발견한 문제를 받아 결정하고 반영했습니다.</li>
+              <li>직접 구현한 시행 로그 CSV가 판정 지연 KPI 2개의 원본 데이터가 됐습니다.</li>
+              <li>picar가 움직이면 카메라도 같이 움직이는 문제를 찾아, 카메라 보드(RPi5)와 주행 보드(RPi4B) 2대 구성을 문서와 구성 파일에 반영했습니다.</li>
+              <li>교육장 기기에서만 되던 가입·수료증 재발급을 위해 같은 회원 DB를 쓰는 회사 웹사이트를 제안·구현했습니다.</li>
+            </ul>
+          </div>
+          <div class="block">
+            <h3>다음에 다르게 할 것</h3>
+            <ul class="plain-list">
+              <li>측정 도구를 만들면 정답을 아는 짧은 입력으로 도구부터 검증합니다.</li>
+              <li>임계값 조정용 촬영과 평가용 촬영을 처음부터 나눠 모읍니다.</li>
+              <li>"반영됐다"고 보고하기 전에 서비스 재시작과 실제 응답 값을 확인합니다.</li>
+              <li>평가 계획에 시스템을 모르는 외부인 촬영을 넣습니다.</li>
+            </ul>
+          </div>
+        </div>
+
+    </article>
+
+    <nav class="next-page" aria-label="다른 프로젝트">
+      <a href="../index.html">← 전체 포트폴리오</a>
+      <a href="ai-speaker.html">다음 · AI 스피커 + 낙상 알림 →</a>
+    </nav>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>이동혁 · <a href="https://github.com/Lee35678">github.com/Lee35678</a></span>
+    <span>수치 출처 · SafeSign 저장소 dev 브랜치의 AI 비전 진행보고서(12), 모델 카드(05), 테스트·평가 리포트(06), 커밋 기록</span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI 스피커 + 낙상 알림 · 이동혁</title>
+<meta name="description" content="졸업 작품 · 한국어 음성 비서와 MoveNet 낙상 감지·FCM 알림">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="who" href="../index.html" style="text-decoration:none">이동혁</a>
+    <nav aria-label="목차">
+      <a href="#role">역할</a>
+      <a href="#system">구성</a>
+      <a href="#versions">개선 과정</a>
+      <a href="#limits">한계</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <p class="crumb"><a href="../index.html">← 전체 포트폴리오</a></p>
+    <div class="page-head">
+      <span class="label">대표 프로젝트 02 · 2025.03 – 06 · 졸업 작품</span>
+      <h1>AI 스피커 + 낙상 알림</h1>
+      <p class="one">웨이크워드로 부르는 한국어 음성 비서와, 웹캠으로 낙상을 감지해 휴대폰으로 알리는 기능을 한 프로그램에서 동시에 실행합니다.</p>
+      <div class="linkrow"><span class="btn off">GitHub 비공개</span></div>
+    </div>
+
+    <div class="rolebox" id="role">
+      <div class="role-top">
+        <div><span class="role-k">TYPE</span><b>졸업 작품</b></div>
+        <div><span class="role-k">MY ROLE</span><b>음성 비서 · 낙상 감지 · 알림</b><p>세 모듈과 동시 실행 런처 구현</p></div>
+        <div><span class="role-k">VERSIONS</span><b>2단계 개발</b><p>1차 2025.03 · 개선판 2025.05 – 06</p></div>
+      </div>
+      <div>
+        <span class="role-k">MY CONTRIBUTION</span>
+        <ul class="contrib">
+          <li>음성 비서: 웨이크워드, Cloud STT/TTS, 웹 검색 결합 답변</li>
+          <li>낙상 감지: MoveNet 관절 좌표 기반 2단계 판정</li>
+          <li>알림: Firebase Cloud Messaging 토픽 푸시, 안드로이드 수신 예시</li>
+          <li>런처: 음성은 백그라운드 스레드, 낙상 감지는 메인 스레드로 동시 실행</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap" style="padding-block:40px 56px">
+    <article class="feature">
+      <div class="block" id="system">
+        <h3>시스템 구성</h3>
+        <div class="flow">
+          <div class="flow-line"><span class="k">음성</span><span class="n">마이크</span><i>→</i><span class="n hot">웨이크워드 "실비야"</span><i>→</i><span class="n">Cloud STT</span><i>→</i><span class="n hot">웹 검색 상위 5개 + Gemini 종합</span><i>→</i><span class="n">Cloud TTS (gTTS 폴백)</span><i>→</i><span class="n">스피커</span></div>
+          <div class="flow-line"><span class="k">낙상</span><span class="n">웹캠</span><i>→</i><span class="n">MoveNet Lightning 192×192</span><i>→</i><span class="n hot">1단계 의심</span><i>→</i><span class="n hot">2단계 확인</span><i>→</i><span class="n">FCM fallAlerts 토픽</span><i>→</i><span class="n">안드로이드 앱</span></div>
+        </div>
+        <p class="note">"현재 시간", "종료" 같은 특수 명령은 검색 없이 기기에서 바로 처리합니다. 낙상 추론은 2프레임마다 한 번, 약 15fps 웹캠에서 7~8fps로 돕니다.</p>
+      </div>
+
+      <div class="block" id="versions">
+        <h3>1차 버전에서 개선판으로</h3>
+        <div class="vt" role="table" aria-label="버전별 비교">
+          <div class="vt-row head" role="row"><span role="columnheader">항목</span><span role="columnheader">1차 · 2025.03</span><span role="columnheader">개선판 · 2025.05 – 06</span></div>
+          <div class="vt-row" role="row"><b role="cell">낙상 판단</b><span class="v1" role="cell">배경 차분으로 움직이는 영역을 찾고, 경계 상자의 높이/너비 비율이 0.5 미만으로 2초 이상 지속되면 낙상</span><span class="v2" role="cell">MoveNet 관절 좌표로 코의 낙폭과 몸통 각도 변화를 보고 의심한 뒤, 4프레임 안에 몸이 수평이고 코가 엉덩이보다 아래이면 확정</span></div>
+          <div class="vt-row" role="row"><b role="cell">알림</b><span class="v1" role="cell">화면 표시와 로그 파일</span><span class="v2" role="cell">FCM 토픽 푸시로 휴대폰 알림, 5초 안의 중복 알림은 보내지 않음</span></div>
+          <div class="vt-row" role="row"><b role="cell">음성 인식</b><span class="v1" role="cell">SpeechRecognition의 웹 음성 인식</span><span class="v2" role="cell">Google Cloud STT, 웨이크워드 문구 가중치, 음성 구간 감지(webrtcvad 또는 음량 기준)</span></div>
+          <div class="vt-row" role="row"><b role="cell">답변</b><span class="v1" role="cell">알람·날씨는 규칙 처리, 나머지는 Gemini 단독 답변</span><span class="v2" role="cell">질문으로 웹을 검색해 상위 5개 결과를 Gemini가 종합해 답변</span></div>
+          <div class="vt-row" role="row"><b role="cell">음성 출력</b><span class="v1" role="cell">gTTS</span><span class="v2" role="cell">Google Cloud TTS, 오류·미설정 시 gTTS로 자동 대체</span></div>
+          <div class="vt-row" role="row"><b role="cell">실행 구조</b><span class="v1" role="cell">음성 비서와 낙상 감지를 각각 따로 실행</span><span class="v2" role="cell">한 런처에서 두 기능을 동시에 실행</span></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>설계 판단</h3>
+        <div class="decisions" role="table" aria-label="설계 판단">
+          <div class="dec head" role="row"><span role="columnheader">선택</span><span role="columnheader">이유</span><span role="columnheader">이전 방식</span></div>
+          <div class="dec" role="row"><b role="cell">관절 좌표 + 2단계 확인</b><p class="why" role="cell">배경 차분은 사람 말고도 움직이는 모든 것에 반응하고, 한 번 크게 움직인 것만으로는 넘어졌다고 보기 어렵습니다. 의심과 확인을 나눠 한 순간의 움직임만으로 알리지 않게 했습니다.</p><span class="alt" role="cell">배경 차분 + 가로세로 비율</span></div>
+          <div class="dec" role="row"><b role="cell">웹 검색 결합 답변</b><p class="why" role="cell">언어 모델 단독 답변은 최신 정보에 약해, 검색 결과를 근거로 붙여 답하게 했습니다.</p><span class="alt" role="cell">Gemini 단독 답변</span></div>
+          <div class="dec" role="row"><b role="cell">TTS 자동 대체</b><p class="why" role="cell">클라우드 음성 합성이 실패해도 스피커가 침묵하지 않도록 gTTS로 넘어가게 했습니다.</p><span class="alt" role="cell">단일 TTS</span></div>
+          <div class="dec" role="row"><b role="cell">토픽 방식 알림</b><p class="why" role="cell">기기 토큰을 하나씩 관리하지 않아도, 토픽을 구독한 휴대폰이 모두 알림을 받습니다.</p><span class="alt" role="cell">화면 표시만</span></div>
+        </div>
+      </div>
+
+      <div class="two" id="limits">
+        <div class="block">
+          <h3>한계</h3>
+          <ul class="plain-list">
+            <li>낙상 판단은 관절 좌표에 대한 임계값 규칙이고, 오탐·미탐 비율을 시험 데이터로 재지 않았습니다.</li>
+            <li>한 사람만 추적합니다.</li>
+            <li>알림 모듈은 지원이 종료된 FCM 레거시 API를 써서, 지금 쓰려면 HTTP v1 API로 바꿔야 합니다.</li>
+            <li>음성 인식은 대체 경로가 없어 클라우드 인증이 없으면 반응하지 않습니다.</li>
+          </ul>
+        </div>
+        <div class="block">
+          <h3>이후 프로젝트로 이어진 것</h3>
+          <ul class="plain-list">
+            <li>"얼마나 잘 맞는지 재지 않았다"는 한계가, SafeSign에서 학습에 쓰지 않은 데이터로 KPI를 재고 신뢰구간과 함께 보고하는 방식으로 이어졌습니다.</li>
+            <li>이 저장소에서 브랜치와 PR을 처음 써 봤습니다(AI 코딩 도구가 만든 PR 5건 병합).</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <nav class="next-page" aria-label="다른 프로젝트">
+      <a href="safesign.html">← 이전 · SafeSign PhysicalAI</a>
+      <a href="fall-detection.html">다음 · 영상 시퀀스 낙상 감지 →</a>
+    </nav>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>이동혁 · <a href="https://github.com/Lee35678">github.com/Lee35678</a></span>
+    <span>내용 출처 · AI_Speaker(1차), AI_Speaker_new(개선판) 저장소의 코드와 README</span>
+  </div>
+</footer>
+
+</body>
+</html>

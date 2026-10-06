@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>영상 시퀀스 낙상 감지 · 이동혁</title>
+<meta name="description" content="MobileNetV2 특징 + LSTM으로 32프레임 시퀀스를 분류하는 웹캠 실시간 낙상 감지">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="who" href="../index.html" style="text-decoration:none">이동혁</a>
+    <nav aria-label="목차">
+      <a href="#pipeline">구조</a>
+      <a href="#result">결과</a>
+      <a href="#review">돌아보기</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <p class="crumb"><a href="../index.html">← 전체 포트폴리오</a></p>
+    <div class="page-head">
+      <span class="label">대표 프로젝트 03 · 2025.06 · 개인</span>
+      <h1>영상 시퀀스 낙상 감지</h1>
+      <p class="one">사전학습 MobileNetV2로 프레임 특징을 뽑고, 32프레임 시퀀스를 LSTM으로 분류해 웹캠 영상에서 실시간으로 낙상을 판단합니다.</p>
+      <div class="linkrow"><a class="btn" href="https://github.com/Lee35678/Fall_Detection">GitHub</a></div>
+    </div>
+
+    <div class="rolebox">
+      <div class="role-top">
+        <div><span class="role-k">TYPE</span><b>개인 프로젝트</b></div>
+        <div><span class="role-k">MY ROLE</span><b>전체</b><p>특징 추출 · LSTM 학습 · 웹캠 실시간 감지</p></div>
+        <div><span class="role-k">DATA</span><b>UBFC Fall Detection Dataset</b><p>실험실 환경 낙상/비낙상 영상</p></div>
+      </div>
+      <p class="others-did">같은 낙상 문제를 세 가지 방식으로 풀어 봤습니다 · 배경 차분 규칙(2025.03) → MoveNet 관절 규칙(2025.05 – 06, <a href="ai-speaker.html">AI 스피커</a>) → 학습한 시퀀스 모델(2025.06, 이 프로젝트)</p>
+    </div>
+  </div>
+
+  <div class="wrap" style="padding-block:40px 56px">
+    <article class="feature">
+      <div class="block" id="pipeline">
+        <h3>구조</h3>
+        <div class="flow">
+          <div class="flow-line"><span class="k">학습</span><span class="n">프레임 32×224×224×3</span><i>→</i><span class="n hot">MobileNetV2 (ImageNet, 고정)</span><i>→</i><span class="n">특징 32×1280</span><i>→</i><span class="n hot">LSTM(128) → Dropout 0.3 → Dense(sigmoid)</span></div>
+          <div class="flow-line"><span class="k">실시간</span><span class="n">웹캠 프레임</span><i>→</i><span class="n">224×224 · 0~1 정규화</span><i>→</i><span class="n">MobileNetV2</span><i>→</i><span class="n hot">최근 32프레임 유지</span><i>→</i><span class="n">확률 &gt; 0.5 → FALL DETECTED</span></div>
+        </div>
+        <div class="decisions" role="table" aria-label="설계 판단" style="margin-top:22px">
+          <div class="dec head" role="row"><span role="columnheader">선택</span><span role="columnheader">이유</span><span role="columnheader">대안</span></div>
+          <div class="dec" role="row"><b role="cell">프레임 시퀀스</b><p class="why" role="cell">앉거나 눕는 자세와 넘어지는 움직임은 한 장으로 구분하기 어려워, 32프레임의 흐름을 보고 판단하게 했습니다.</p><span class="alt" role="cell">단일 프레임 분류</span></div>
+          <div class="dec" role="row"><b role="cell">특징 추출기 고정</b><p class="why" role="cell">MobileNetV2 가중치는 고정하고 LSTM만 학습해, 학습할 양을 줄이고 Colab에서 빠르게 반복할 수 있게 했습니다.</p><span class="alt" role="cell">전체 미세조정</span></div>
+        </div>
+        <p class="note">학습 설정 · Adam, binary cross-entropy, batch 4, 15 epoch, 검증 정확도가 가장 높은 모델을 저장.</p>
+      </div>
+
+      <div class="block" id="result">
+        <h3>결과</h3>
+        <p>검증 정확도 <span class="num">99.42%</span>, 검증 손실 <span class="num">0.0196</span></p>
+        <div class="cond" aria-label="측정 조건">
+          <div><span>데이터</span><b>UBFC Fall Detection Dataset</b></div>
+          <div><span>분할</span><b>영상 클립 무작위 8:2</b></div>
+          <div><span>시험셋</span><b>없음 · 검증셋 결과</b></div>
+        </div>
+      </div>
+
+      <div class="two" id="review">
+        <div class="block">
+          <h3>돌아보기</h3>
+          <ul class="plain-list">
+            <li>클립 단위 무작위 분할이라 같은 장소·같은 인물의 클립이 학습과 검증에 함께 들어갈 수 있습니다. 99.42%는 처음 보는 환경에서의 성능이 아닙니다.</li>
+            <li>모델 파일을 못 읽으면 학습되지 않은 더미 모델로 조용히 실행되는 경로가 있었습니다. 결과가 틀려도 알아차리기 어렵습니다.</li>
+            <li>영상을 프레임 묶음으로 바꾸는 스크립트가 저장소에 없어, 같은 결과를 다시 만들기 어렵습니다.</li>
+          </ul>
+        </div>
+        <div class="block">
+          <h3>이후 프로젝트로 이어진 것</h3>
+          <ul class="plain-list">
+            <li>SafeSign에서는 첫 결과 98.81%를 보고 같은 문제를 먼저 의심했고, 세션 단위로 나눠 실제 77.57%를 찾았습니다.</li>
+            <li>최종 성능은 학습에 쓰지 않은 데이터로, 결과를 보기 전에 규칙을 정하고 신뢰구간과 함께 보고했습니다.</li>
+            <li>모델이 없을 때는 조용히 넘어가지 않고 거부 이유(model_not_loaded)를 응답에 남기게 했습니다.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <nav class="next-page" aria-label="다른 프로젝트">
+      <a href="ai-speaker.html">← 이전 · AI 스피커 + 낙상 알림</a>
+      <a href="../index.html">전체 포트폴리오 →</a>
+    </nav>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>이동혁 · <a href="https://github.com/Lee35678">github.com/Lee35678</a></span>
+    <span>내용 출처 · Fall_Detection 저장소의 코드와 README(작성자 학습 로그 기준 수치)</span>
+  </div>
+</footer>
+
+</body>
+</html>
