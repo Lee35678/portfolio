@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
 <style>
-/* Layout: 한 칼럼 본문(최대 960px) + 상단 고정 목차. 대표 프로젝트만 넓은 패널, 나머지는 목록형. */
+/* Layout: 한 칼럼 본문(최대 960px) + 상단 고정 목차. 첫 화면은 인사말 + 핵심 포인트 3개, 대표 프로젝트만 넓은 패널. */
 :root {
   --bg: #f4f6f8;
   --surface: #ffffff;
@@ -28,7 +28,7 @@
   --step-1: 1.1875rem;
   --step-2: 1.5rem;
   --step-3: 2.125rem;
-  --step-4: 3rem;
+  --step-4: 2.75rem;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
@@ -59,11 +59,10 @@ body {
 }
 a { color: inherit; text-decoration-color: var(--accent); text-underline-offset: 3px; }
 a:hover { color: var(--accent-ink); }
-a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
-h1, h2, h3 { line-height: 1.3; text-wrap: balance; margin: 0; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+h1, h2, h3, h4, h5 { line-height: 1.35; text-wrap: balance; margin: 0; }
 p { margin: 0; }
-ul { margin: 0; padding-left: 1.2em; }
-.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+ul, ol { margin: 0; }
 .label {
   font-family: var(--font-mono);
   font-size: var(--step--1);
@@ -71,6 +70,7 @@ ul { margin: 0; padding-left: 1.2em; }
   text-transform: uppercase;
   color: var(--muted);
 }
+.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; color: var(--accent-ink); font-weight: 500; }
 
 .wrap { max-width: 960px; margin: 0 auto; padding-inline: 20px; }
 
@@ -89,25 +89,34 @@ ul { margin: 0; padding-left: 1.2em; }
 .topbar nav a { font-size: var(--step--1); color: var(--muted); text-decoration: none; white-space: nowrap; }
 .topbar nav a:hover { color: var(--ink); }
 
-/* 히어로 */
-.hero { padding-block: 64px 48px; display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 40px; align-items: center; }
-.hero h1 { font-size: var(--step-4); font-weight: 700; letter-spacing: -0.02em; }
-.hero .role { font-size: var(--step-2); font-weight: 500; color: var(--muted); margin-top: 6px; }
-.hero .lead { font-size: var(--step-1); max-width: 34em; margin-top: 24px; }
-.hero .facts { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 20px; margin-top: 28px; font-size: 0.9375rem; }
-.hero .facts dt { color: var(--muted); }
-.hero .facts dd { margin: 0; }
-.hand { width: 100%; max-width: 220px; justify-self: end; margin: 0; }
+/* 첫 화면 */
+.hero { padding-block: 56px 48px; display: grid; gap: 36px; }
+.hero-top { display: grid; grid-template-columns: minmax(0, 1fr) 190px; gap: 40px; align-items: center; }
+.hello { font-size: var(--step-1); color: var(--muted); }
+.hero h1 { font-size: var(--step-4); font-weight: 700; letter-spacing: -0.02em; margin-top: 8px; max-width: 18em; }
+.hero h1 em { font-style: normal; color: var(--accent-ink); }
+.hero .lead { font-size: var(--step-1); max-width: 36em; margin-top: 18px; }
+.hero .contact { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 18px; font-size: 0.9375rem; color: var(--muted); }
+.hand { width: 100%; max-width: 190px; justify-self: end; margin: 0; }
 .hand svg { width: 100%; height: auto; display: block; }
 .hand figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); text-align: center; margin-top: 6px; }
 
+.points { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; list-style: none; padding: 0; }
+.point { background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--accent); border-radius: 4px; padding: 20px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.point h2 { font-size: var(--step-1); font-weight: 700; }
+.point p { font-size: 0.9375rem; color: var(--muted); }
+.point .fig { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--ink); border-top: 1px solid var(--line); padding-top: 10px; font-variant-numeric: tabular-nums; }
+.point a { font-size: var(--step--1); color: var(--muted); }
+
 section { padding-block: 56px; border-top: 1px solid var(--line); scroll-margin-top: 56px; }
-.sec-head { display: flex; flex-direction: column; gap: 6px; margin-bottom: 28px; }
+.sec-head { display: grid; gap: 6px; margin-bottom: 28px; }
 .sec-head h2 { font-size: var(--step-3); font-weight: 700; letter-spacing: -0.01em; }
-.sec-head p { color: var(--muted); max-width: 40em; }
+.sec-head p { color: var(--muted); max-width: 42em; }
 
 /* 대표 프로젝트 */
-.feature { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 32px; display: grid; gap: 40px; }
+.feature { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 32px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 44px; }
+.feature > *, .block { min-width: 0; }
+.meta .chip { white-space: normal; line-height: 1.3; }
 .feature-top { display: grid; gap: 14px; }
 .feature-top .one { font-size: var(--step-1); max-width: 36em; }
 .meta { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -116,19 +125,13 @@ section { padding-block: 56px; border-top: 1px solid var(--line); scroll-margin-
   padding: 6px 9px; border: 1px solid var(--line); border-radius: 3px; color: var(--muted); white-space: nowrap;
 }
 .chip.strong { border-color: var(--accent); color: var(--accent-ink); background: var(--accent-soft); }
-.block h4 { font-size: var(--step-1); margin: 0 0 14px; }
-.block > p { max-width: 42em; }
-.block > p + p { margin-top: 10px; }
-
-.role-list { display: grid; gap: 10px; list-style: none; padding: 0; }
-.role-list li { display: grid; grid-template-columns: 9.5em minmax(0, 1fr); gap: 16px; }
-.role-list b { font-weight: 500; }
-.role-list span { color: var(--muted); }
+.block h3 { font-size: var(--step-1); margin-bottom: 14px; }
+.block > p { max-width: 44em; }
 
 /* 파이프라인 */
 .pipe-scroll { overflow-x: auto; padding-bottom: 6px; }
-.pipe { display: flex; align-items: stretch; gap: 0; min-width: 820px; list-style: none; padding: 0; margin: 0; }
-.pipe li { flex: 1 1 0; position: relative; padding: 12px 12px 12px 14px; border: 1px solid var(--line); border-left-width: 0; background: var(--bg); }
+.pipe { display: flex; align-items: stretch; min-width: 820px; list-style: none; padding: 0; }
+.pipe li { flex: 1 1 0; padding: 12px 12px 12px 14px; border: 1px solid var(--line); border-left-width: 0; background: var(--bg); }
 .pipe li:first-child { border-left-width: 1px; border-radius: 4px 0 0 4px; }
 .pipe li:last-child { border-radius: 0 4px 4px 0; }
 .pipe li.mine { background: var(--accent-soft); }
@@ -139,8 +142,17 @@ section { padding-block: 56px; border-top: 1px solid var(--line); scroll-margin-
 .swatch { display: inline-block; width: 12px; height: 12px; vertical-align: -1px; margin-right: 6px; border: 1px solid var(--line); background: var(--bg); }
 .swatch.mine { background: var(--accent-soft); border-color: var(--accent); }
 
+/* 결정 표 */
+.decisions { display: grid; border-top: 1px solid var(--line); }
+.dec { display: grid; grid-template-columns: 12em minmax(0, 1fr) 11em; gap: 18px; padding-block: 14px; border-bottom: 1px solid var(--line); align-items: start; }
+.dec.head { padding-block: 8px; }
+.dec.head > * { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.04em; }
+.dec b { font-weight: 700; }
+.dec .why { font-size: 0.9375rem; }
+.dec .alt { font-size: 0.875rem; color: var(--muted); }
+
 /* KPI */
-.kpi { display: grid; gap: 0; border-top: 1px solid var(--line); margin-top: 18px; }
+.kpi { display: grid; border-top: 1px solid var(--line); margin-top: 18px; }
 .kpi-row {
   display: grid; grid-template-columns: 9em 6.5em 6em minmax(0, 1fr) 6.5em;
   gap: 16px; align-items: center; padding-block: 14px; border-bottom: 1px solid var(--line);
@@ -171,11 +183,10 @@ section { padding-block: 56px; border-top: 1px solid var(--line); scroll-margin-
 .note { font-size: 0.875rem; color: var(--muted); margin-top: 14px; max-width: 46em; }
 
 /* 문제 해결 사례 */
-.cases { list-style: none; padding: 0; margin: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.cases { list-style: none; padding: 0; display: grid; border-top: 1px solid var(--line); }
 .case { display: grid; grid-template-columns: 7.5em minmax(0, 1fr); gap: 20px; padding-block: 20px; border-bottom: 1px solid var(--line); }
 .case .when { font-family: var(--font-mono); font-size: var(--step--1); color: var(--muted); padding-top: 3px; }
-.case h5 { font-size: var(--step-1); margin: 0 0 8px; font-weight: 700; line-height: 1.4; }
-.case .num { font-family: var(--font-mono); color: var(--accent-ink); font-weight: 500; }
+.case h4 { font-size: var(--step-1); margin-bottom: 8px; font-weight: 700; }
 .case dl { display: grid; grid-template-columns: 3.6em minmax(0, 1fr); gap: 4px 12px; margin: 0; font-size: 0.9375rem; }
 .case dt { color: var(--muted); }
 .case dd { margin: 0; }
@@ -183,68 +194,94 @@ section { padding-block: 56px; border-top: 1px solid var(--line); scroll-margin-
 .two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; }
 .plain-list { display: grid; gap: 8px; padding-left: 1.1em; }
 .plain-list li::marker { color: var(--accent); }
-
 .links { display: flex; flex-wrap: wrap; gap: 10px 20px; font-size: 0.9375rem; }
+
+/* 협업·코드 관리 변화 */
+.stages { display: grid; border-top: 1px solid var(--line); }
+.stage { display: grid; grid-template-columns: 9.5em repeat(3, minmax(0, 1fr)); gap: 18px; padding-block: 16px; border-bottom: 1px solid var(--line); }
+.stage.head { padding-block: 8px; }
+.stage.head > * { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.04em; }
+.stage .when b { display: block; font-family: var(--font-mono); font-weight: 500; font-variant-numeric: tabular-nums; }
+.stage .when span { font-size: 0.8125rem; color: var(--muted); line-height: 1.5; display: block; }
+.stage .when em { font-style: normal; font-size: 0.75rem; display: inline-block; margin-top: 4px; padding: 1px 6px; border: 1px solid var(--line); border-radius: 3px; color: var(--muted); }
+.stage .cell { font-size: 0.9125rem; line-height: 1.6; min-width: 0; }
+.stage.after .when em { border-color: var(--accent); color: var(--accent-ink); }
+.stage.now { background: var(--accent-soft); margin-inline: -12px; padding-inline: 12px; border-radius: 4px; }
+.divider { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.05em; color: var(--accent-ink); padding-block: 10px; border-bottom: 1px solid var(--line); }
+.upbar { display: grid; grid-template-columns: minmax(0, 1fr) 3.2em; gap: 8px; align-items: center; margin-top: 6px; }
+.upbar .bar { height: 6px; background: var(--line); border-radius: 3px; position: relative; overflow: hidden; }
+.upbar .bar i { position: absolute; inset: 0 auto 0 0; background: var(--muted); border-radius: 3px; }
+.upbar span { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+
+.collab { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; margin-top: 36px; }
+.collab-item { padding-block: 16px; border-top: 1px solid var(--line); min-width: 0; }
+.collab-item h4 { font-size: var(--step-0); font-weight: 700; margin-bottom: 4px; }
+.collab-item p { font-size: 0.9375rem; color: var(--muted); }
+.gap-box { margin-top: 28px; padding: 18px 20px; border: 1px dashed var(--muted); border-radius: 4px; max-width: 46em; }
+.gap-box h4 { font-size: var(--step-0); margin-bottom: 4px; }
+.gap-box p { font-size: 0.9375rem; color: var(--muted); }
 
 /* 그 밖의 프로젝트 */
 .group + .group { margin-top: 44px; }
-.group > h3 { font-size: var(--step-1); margin-bottom: 4px; }
-.group > .label { display: block; margin-bottom: 16px; }
-.proj { display: grid; grid-template-columns: minmax(0, 1fr) 13em; gap: 8px 28px; padding-block: 18px; border-top: 1px solid var(--line); }
+.group-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; margin-bottom: 12px; }
+.group-head h3 { font-size: var(--step-1); }
+.group-head span { font-size: var(--step--1); color: var(--muted); }
+.proj { display: grid; grid-template-columns: minmax(0, 1fr) 13em; gap: 8px 28px; padding-block: 20px; border-top: 1px solid var(--line); }
 .proj:last-child { border-bottom: 1px solid var(--line); }
-.proj h4 { font-size: var(--step-1); font-weight: 700; line-height: 1.4; margin: 0; }
+.proj h4 { font-size: var(--step-1); font-weight: 700; }
 .proj h4 a { text-decoration: none; }
 .proj h4 a:hover { text-decoration: underline; }
 .proj .desc { margin-top: 6px; max-width: 40em; }
-.proj .points { margin-top: 8px; color: var(--muted); font-size: 0.9375rem; display: grid; gap: 4px; }
+.proj dl { display: grid; grid-template-columns: 4.6em minmax(0, 1fr); gap: 4px 12px; margin: 10px 0 0; font-size: 0.9375rem; }
+.proj dt { color: var(--muted); }
+.proj dd { margin: 0; }
 .proj aside { font-size: var(--step--1); color: var(--muted); display: grid; gap: 6px; align-content: start; }
 .proj aside .date { font-family: var(--font-mono); color: var(--ink); }
-.priv { font-family: var(--font-mono); font-size: 0.6875rem; padding: 2px 6px; border: 1px dashed var(--muted); border-radius: 3px; color: var(--muted); vertical-align: 2px; margin-left: 6px; font-weight: 400; }
-
-.esp-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); margin-top: 12px; }
-.esp-grid div { padding: 12px 14px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); min-width: 0; }
-.esp-grid b { display: block; font-family: var(--font-mono); font-weight: 500; font-size: 0.8125rem; }
-.esp-grid span { font-size: 0.8125rem; color: var(--muted); line-height: 1.5; display: block; margin-top: 2px; }
+.priv { font-family: var(--font-mono); font-size: 0.6875rem; padding: 2px 6px; border: 1px dashed var(--muted); border-radius: 3px; color: var(--muted); vertical-align: 3px; margin-left: 6px; font-weight: 400; }
 
 /* 기술 */
-.skills { display: grid; gap: 0; border-top: 1px solid var(--line); }
-.skill { display: grid; grid-template-columns: 11em minmax(0, 1fr) minmax(0, 1fr); gap: 20px; padding-block: 16px; border-bottom: 1px solid var(--line); }
+.skills { display: grid; border-top: 1px solid var(--line); }
+.skill { display: grid; grid-template-columns: 10em minmax(0, 1.1fr) minmax(0, 1fr); gap: 20px; padding-block: 16px; border-bottom: 1px solid var(--line); }
+.skill.head { padding-block: 8px; }
+.skill.head > * { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.04em; }
 .skill h3 { font-size: var(--step-0); font-weight: 700; }
 .skill .tools { font-size: 0.9375rem; }
-.skill .proof { font-size: 0.875rem; color: var(--muted); }
-
-/* 타임라인 */
-.timeline { list-style: none; padding: 0; margin: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
-.timeline li { display: grid; grid-template-columns: 7em minmax(0, 1fr); gap: 20px; padding-block: 12px; border-bottom: 1px solid var(--line); }
-.timeline .y { font-family: var(--font-mono); color: var(--muted); font-size: 0.875rem; padding-top: 2px; }
+.skill .why { font-size: 0.9125rem; color: var(--muted); }
 
 footer { border-top: 1px solid var(--line); padding-block: 40px 56px; color: var(--muted); font-size: 0.875rem; }
 footer .wrap { display: grid; gap: 8px; }
 
 @media (max-width: 820px) {
-  .hero { grid-template-columns: minmax(0, 1fr); padding-block: 40px 36px; gap: 28px; }
-  .hand { justify-self: start; max-width: 170px; }
-  .hero h1 { font-size: 2.375rem; }
+  .hero { padding-block: 36px 36px; }
+  .hero-top { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .hand { justify-self: start; max-width: 140px; order: -1; }
+  .hero h1 { font-size: 2rem; }
+  .points { grid-template-columns: minmax(0, 1fr); }
   .feature { padding: 22px 18px; }
+  .dec { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .dec.head { display: none; }
+  .dec .alt::before { content: "버린 대안: "; }
   .kpi-row { grid-template-columns: minmax(0, 1fr) auto auto; gap: 6px 14px; }
   .kpi-row.head { display: none; }
   .kpi-row .kpi-name { grid-column: 1 / -1; }
   .kpi-row .scale { grid-column: 1 / -1; order: 5; }
   .kpi-row .kpi-goal::before { content: "목표 "; }
   .two { grid-template-columns: minmax(0, 1fr); }
+  .stage { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .stage.head { display: none; }
+  .stage .cell::before { content: attr(data-k); display: block; font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.05em; color: var(--muted); }
+  .collab { grid-template-columns: minmax(0, 1fr); }
   .proj { grid-template-columns: minmax(0, 1fr); }
   .proj aside { grid-auto-flow: column; justify-content: start; gap: 14px; }
-  .esp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .skill { grid-template-columns: minmax(0, 1fr); gap: 4px; }
-  .role-list li { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .skill.head { display: none; }
 }
 @media (max-width: 520px) {
   .case { grid-template-columns: minmax(0, 1fr); gap: 6px; }
-  .timeline li { grid-template-columns: minmax(0, 1fr); gap: 2px; }
   .topbar .who { display: none; }
-  .hero .facts { grid-template-columns: minmax(0, 1fr); gap: 0; }
-  .hero .facts dd { margin-bottom: 8px; }
   .proj aside { grid-auto-flow: row; }
+  .proj dl, .case dl { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .proj dd, .case dd { margin-bottom: 6px; }
 }
 </style>
 </head>
@@ -255,9 +292,9 @@ footer .wrap { display: grid; gap: 8px; }
     <span class="who">이동혁</span>
     <nav aria-label="목차">
       <a href="#safesign">대표 프로젝트</a>
+      <a href="#growth">협업·코드 관리</a>
       <a href="#projects">프로젝트</a>
       <a href="#skills">기술</a>
-      <a href="#timeline">이력</a>
     </nav>
   </div>
 </header>
@@ -265,46 +302,65 @@ footer .wrap { display: grid; gap: 8px; }
 <main>
   <div class="wrap">
     <div class="hero">
-      <div>
-        <h1>이동혁</h1>
-        <p class="role">AI 비전 · 피지컬 AI 개발자</p>
-        <p class="lead">카메라로 사람의 손과 몸을 읽고, 그 판정을 로봇 손·주행 로봇·마이크로컨트롤러 같은 실물 장치로 돌려주는 시스템을 만듭니다. 점수가 너무 좋게 나오면 먼저 데이터를 의심하고, 평가 데이터는 결과를 보기 전에 규칙을 정해 둡니다.</p>
-        <dl class="facts">
-          <dt>주력</dt><dd>Python · MediaPipe · scikit-learn · FastAPI · Raspberry Pi · ESP32</dd>
-          <dt>대표 작업</dt><dd><a href="#safesign">SafeSign PhysicalAI</a> · 크레인 수신호 판정 비전 파이프라인</dd>
-          <dt>GitHub</dt><dd><a href="https://github.com/Lee35678">github.com/Lee35678</a></dd>
-        </dl>
+      <div class="hero-top">
+        <div>
+          <p class="hello">안녕하세요, AI 비전 · 피지컬 AI 개발자 이동혁입니다.</p>
+          <h1>카메라로 사람의 손을 읽고, <em>그 판정으로 실물 장치를 움직입니다.</em></h1>
+          <p class="lead">졸업 후 참여한 4인 팀 프로젝트에서 크레인 수신호 7종을 판정하는 비전 파이프라인을 맡아, 라즈베리파이 카메라에서 로봇 손과 주행 로봇까지 이어지는 시스템을 만들었습니다.</p>
+          <p class="contact"><span>GitHub <a href="https://github.com/Lee35678">github.com/Lee35678</a></span></p>
+        </div>
+        <figure class="hand" aria-label="MediaPipe 손 랜드마크 21개 구조도">
+          <svg viewBox="0 0 200 250" role="img">
+            <title>손 랜드마크 21개와 연결선</title>
+            <g stroke="var(--muted)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+              <polyline points="100,232 70,207 48,182 34,157 22,134"/>
+              <polyline points="100,232 80,142 74,102 70,77 67,52"/>
+              <polyline points="80,142 102,137 122,142 140,154"/>
+              <polyline points="102,137 102,94 102,66 102,40"/>
+              <polyline points="122,142 127,102 130,77 133,56"/>
+              <polyline points="100,232 140,154 150,124 156,104 161,86"/>
+            </g>
+            <g fill="var(--surface)" stroke="var(--accent)" stroke-width="2">
+              <circle cx="100" cy="232" r="5"/>
+              <circle cx="70" cy="207" r="3.5"/><circle cx="48" cy="182" r="3.5"/><circle cx="34" cy="157" r="3.5"/><circle cx="22" cy="134" r="4.5"/>
+              <circle cx="80" cy="142" r="3.5"/><circle cx="74" cy="102" r="3.5"/><circle cx="70" cy="77" r="3.5"/><circle cx="67" cy="52" r="4.5"/>
+              <circle cx="102" cy="137" r="3.5"/><circle cx="102" cy="94" r="3.5"/><circle cx="102" cy="66" r="3.5"/><circle cx="102" cy="40" r="4.5"/>
+              <circle cx="122" cy="142" r="3.5"/><circle cx="127" cy="102" r="3.5"/><circle cx="130" cy="77" r="3.5"/><circle cx="133" cy="56" r="4.5"/>
+              <circle cx="140" cy="154" r="3.5"/><circle cx="150" cy="124" r="3.5"/><circle cx="156" cy="104" r="3.5"/><circle cx="161" cy="86" r="4.5"/>
+            </g>
+            <g font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--muted)">
+              <text x="108" y="246">0</text>
+              <text x="10" y="126">4</text>
+              <text x="60" y="40">8</text>
+              <text x="97" y="28">12</text>
+              <text x="134" y="44">16</text>
+              <text x="166" y="80">20</text>
+            </g>
+          </svg>
+          <figcaption>hand landmarks · 21 points</figcaption>
+        </figure>
       </div>
-      <figure class="hand" aria-label="MediaPipe 손 랜드마크 21개 구조도">
-        <svg viewBox="0 0 200 250" role="img">
-          <title>손 랜드마크 21개와 연결선</title>
-          <g stroke="var(--muted)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none">
-            <polyline points="100,232 70,207 48,182 34,157 22,134"/>
-            <polyline points="100,232 80,142 74,102 70,77 67,52"/>
-            <polyline points="80,142 102,137 122,142 140,154"/>
-            <polyline points="102,137 102,94 102,66 102,40"/>
-            <polyline points="122,142 127,102 130,77 133,56"/>
-            <polyline points="100,232 140,154 150,124 156,104 161,86"/>
-          </g>
-          <g fill="var(--surface)" stroke="var(--accent)" stroke-width="2">
-            <circle cx="100" cy="232" r="5"/>
-            <circle cx="70" cy="207" r="3.5"/><circle cx="48" cy="182" r="3.5"/><circle cx="34" cy="157" r="3.5"/><circle cx="22" cy="134" r="4.5"/>
-            <circle cx="80" cy="142" r="3.5"/><circle cx="74" cy="102" r="3.5"/><circle cx="70" cy="77" r="3.5"/><circle cx="67" cy="52" r="4.5"/>
-            <circle cx="102" cy="137" r="3.5"/><circle cx="102" cy="94" r="3.5"/><circle cx="102" cy="66" r="3.5"/><circle cx="102" cy="40" r="4.5"/>
-            <circle cx="122" cy="142" r="3.5"/><circle cx="127" cy="102" r="3.5"/><circle cx="130" cy="77" r="3.5"/><circle cx="133" cy="56" r="4.5"/>
-            <circle cx="140" cy="154" r="3.5"/><circle cx="150" cy="124" r="3.5"/><circle cx="156" cy="104" r="3.5"/><circle cx="161" cy="86" r="4.5"/>
-          </g>
-          <g font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--muted)">
-            <text x="108" y="246">0</text>
-            <text x="10" y="126">4</text>
-            <text x="60" y="40">8</text>
-            <text x="97" y="28">12</text>
-            <text x="134" y="44">16</text>
-            <text x="166" y="80">20</text>
-          </g>
-        </svg>
-        <figcaption>hand landmarks · 21 points</figcaption>
-      </figure>
+
+      <ul class="points">
+        <li class="point">
+          <h2>좋은 점수부터 의심합니다</h2>
+          <p>첫 학습 결과가 너무 좋아 데이터를 조사했고, 같은 장면이 학습과 시험에 섞인 것을 찾았습니다. 평가 규칙은 결과를 보기 전에 정합니다.</p>
+          <p class="fig">98.81% → 실제 77.57% → 개선 후 88.68%</p>
+          <a href="#case-split">사례 보기</a>
+        </li>
+        <li class="point">
+          <h2>실물 장치까지 연결합니다</h2>
+          <p>라즈베리파이 5 카메라 판정이 로봇 손·micro:bit·주행 로봇의 동작으로 이어지도록 판정 경로와 장치 호출 순서를 직접 구현했습니다.</p>
+          <p class="fig">RPi5 26.6fps · 판정 지연 P95 0.046초</p>
+          <a href="#safesign">프로젝트 보기</a>
+        </li>
+        <li class="point">
+          <h2>과정이 남는 방식으로 일합니다</h2>
+          <p>작업 방식을 스스로 바꿔 왔습니다. 지금은 브랜치·인터페이스 계약·테스트로 팀원과 작업을 주고받고, 결정의 근거를 기록으로 남깁니다.</p>
+          <p class="fig">4인 팀 브랜치 9개 · 병합 30회 · 인수 테스트 22개</p>
+          <a href="#growth">변화 보기</a>
+        </li>
+      </ul>
     </div>
   </div>
 
@@ -322,23 +378,12 @@ footer .wrap { display: grid; gap: 8px; }
             <span class="chip">2026.09 – 10</span>
             <span class="chip">4인 팀</span>
             <span class="chip strong">AI 비전 파이프라인 · 판정 로직 담당</span>
-            <span class="chip">Raspberry Pi 5 · CSI 카메라</span>
+            <span class="chip">웹 백엔드 판정 로직 · 회원 DB</span>
           </div>
         </div>
 
         <div class="block">
-          <h4>맡은 일</h4>
-          <ul class="role-list">
-            <li><b>비전 파이프라인 전체</b><span>MediaPipe 랜드마크 → 정규화·특징 → SVM → 소속 게이트·임계값·3연속 판정까지 설계·학습하고, RPi5 실시간 판정까지 맡았습니다.</span></li>
-            <li><b>판정 성능 측정</b><span>KPI 7개 중 판정 성능 5개를 학습에 쓰지 않은 팀원 촬영 데이터 210시도로 측정했습니다.</span></li>
-            <li><b>웹 백엔드 판정 로직</b><span>판정 타이밍, 시행 로그 CSV, 장치 응답 판정과 호출 순서를 구현했습니다. 인수 테스트 22개를 통과했습니다.</span></li>
-            <li><b>회원 DB · 회사 사이트</b><span>Supabase 회원·수신호별 합격 저장을 만들고, 교육장 기기에서만 되던 가입·수료증 재발급을 위해 회사 웹사이트를 제안·구현했습니다.</span></li>
-            <li><b>저장소 초기 구성</b><span>서비스 4개(vision·web·actuation·data) 뼈대, 인터페이스 스키마 4종, docker-compose를 처음 만들었습니다.</span></li>
-          </ul>
-        </div>
-
-        <div class="block">
-          <h4>판정 흐름</h4>
+          <h3>판정 흐름과 맡은 범위</h3>
           <div class="pipe-scroll">
             <ol class="pipe">
               <li><div class="n">1</div><div class="t">카메라</div><div class="d">Camera Module 3 · RPi5 CSI</div></li>
@@ -354,8 +399,19 @@ footer .wrap { display: grid; gap: 8px; }
         </div>
 
         <div class="block">
-          <h4>측정 결과</h4>
-          <p>최종 오프라인 측정은 학습에 쓰지 않은 팀원 3명의 촬영 210시도로 했습니다. 측정 규칙은 결과를 보기 전에 정했고, 같은 데이터로 모델이나 임계값을 고르지 않았습니다.</p>
+          <h3>기술을 고른 이유</h3>
+          <div class="decisions" role="table" aria-label="주요 기술 결정">
+            <div class="dec head" role="row"><span role="columnheader">선택</span><span role="columnheader">이유</span><span role="columnheader">버린 대안</span></div>
+            <div class="dec" role="row"><b role="cell">손 랜드마크 + SVM</b><p class="why" role="cell">데이터가 공개 사진 약 2.8만 건뿐이고, 판정이 라즈베리파이 CPU에서 실시간으로 돌아야 했습니다. 왜 그렇게 판정했는지 설명할 수 있어야 했습니다. 전체 학습이 16초라 GPU 없이 로컬에서 바로 다시 학습할 수 있었습니다.</p><span class="alt" role="cell">이미지 분류 CNN</span></div>
+            <div class="dec" role="row"><b role="cell">세션 단위 분할</b><p class="why" role="cell">공개 데이터 97.7%가 연속 촬영 세션에 묶여 있어, 무작위로 나누면 같은 장면이 학습과 시험에 함께 들어갑니다.</p><span class="alt" role="cell">무작위 5겹 분할</span></div>
+            <div class="dec" role="row"><b role="cell">공식 판정 규칙 = 3연속</b><p class="why" role="cell">실제 운영과 같은 규칙으로 재야 의미가 있습니다. 최빈값보다 미판정률이 2.9%에서 6.7%로 불리해지는 쪽이었지만 이 규칙을 공식으로 택했습니다.</p><span class="alt" role="cell">최빈값 규칙</span></div>
+            <div class="dec" role="row"><b role="cell">일치율 = 목표 수신호 확률</b><p class="why" role="cell">코사인 유사도로는 다른 수신호를 해도 최악 95점이 나왔습니다. 확률로 바꾸니 최악 14점이 됐고, 화면의 75점이 판정 기준 τ 0.75와 같은 척도가 됐습니다.</p><span class="alt" role="cell">템플릿 코사인 유사도</span></div>
+          </div>
+        </div>
+
+        <div class="block">
+          <h3>측정 결과</h3>
+          <p>최종 측정은 학습에 쓰지 않은 팀원 3명의 촬영 210시도로 했습니다. 측정 규칙은 결과를 보기 전에 정했고, 이 데이터로 모델이나 임계값을 고르지 않았습니다.</p>
           <div class="kpi" role="table" aria-label="판정 성능 KPI">
             <div class="kpi-row head" role="row">
               <span role="columnheader">지표</span><span role="columnheader">측정값</span><span role="columnheader">목표</span><span role="columnheader">95% 신뢰구간과 목표 위치</span><span role="columnheader">판정</span>
@@ -422,16 +478,16 @@ footer .wrap { display: grid; gap: 8px; }
             </div>
           </div>
           <div class="kpi-legend"><span><i class="lp"></i>측정값</span><span><i class="lb"></i>95% 신뢰구간(Wilson)</span><span><i class="lg"></i>목표</span></div>
-          <p class="note">잠정 달성은 측정값이 목표를 넘었지만 신뢰구간 일부가 목표 밖에 걸친 경우입니다. 표본이 210시도라 이렇게 나눠 보고했습니다. RPi5에서 판정은 1280×720 기준 초당 26.6프레임, 캡처부터 판정까지 39~72ms였습니다.</p>
+          <p class="note">잠정 달성은 측정값이 목표를 넘었지만 신뢰구간 일부가 목표 밖에 걸친 경우입니다. 표본이 210시도라 이렇게 나눠 보고했습니다.</p>
         </div>
 
         <div class="block">
-          <h4>문제 해결 과정</h4>
+          <h3>트러블슈팅</h3>
           <ol class="cases">
-            <li class="case">
+            <li class="case" id="case-split">
               <span class="when">09.20 – 21</span>
               <div>
-                <h5>정답률 <span class="num">98.81%</span>는 허수였다</h5>
+                <h4>정답률 <span class="num">98.81%</span>는 허수였다</h4>
                 <dl>
                   <dt>원인</dt><dd>공개 데이터 27,735건 중 97.7%가 805개 연속 촬영 세션에 묶여 있었습니다. 무작위로 나누면 같은 장면으로 학습하고 시험하는 셈이었습니다.</dd>
                   <dt>조치</dt><dd>파일명에서 세션 키를 만들어 세션 단위 GroupKFold를 기본 분할로 고정했습니다.</dd>
@@ -442,7 +498,7 @@ footer .wrap { display: grid; gap: 8px; }
             <li class="case">
               <span class="when">09.22</span>
               <div>
-                <h5>웹캠 정답률 <span class="num">28.2%</span>, 틀린 건 모델이 아니라 측정 도구</h5>
+                <h4>웹캠 정답률 <span class="num">28.2%</span>, 틀린 건 모델이 아니라 측정 도구</h4>
                 <dl>
                   <dt>원인</dt><dd>직접 만든 진단 도구가 키를 누른 뒤 다음 키까지 수백 프레임을 같은 라벨로 기록해, 손을 바꾸는 중간 프레임이 섞였습니다.</dd>
                   <dt>조치</dt><dd>이전 모델로 같은 프레임을 다시 판정해(26.0%) 모델 변경이 원인이 아님을 먼저 확인하고, 카운트다운 뒤 3프레임만 찍는 촬영 도구를 새로 만들었습니다.</dd>
@@ -453,7 +509,7 @@ footer .wrap { display: grid; gap: 8px; }
             <li class="case">
               <span class="when">09.22</span>
               <div>
-                <h5>모르는 손 모양을 확신하며 틀리는 문제</h5>
+                <h4>모르는 손 모양을 확신하며 틀리는 문제</h4>
                 <dl>
                   <dt>원인</dt><dd>분류기 확률은 7종 안에서 합이 1이라, 낯선 손도 가장 비슷한 클래스에 높은 값이 나옵니다. 한 클래스를 빼고 잰 측정에서 77.3%가 확신도 0.90 이상으로 오판됐습니다.</dd>
                   <dt>조치</dt><dd>판정 뒤에 "그 클래스에 속하기는 하는가"를 보는 소속 게이트(클래스 중심 코사인, 클래스별 임계)를 추가했습니다.</dd>
@@ -464,19 +520,18 @@ footer .wrap { display: grid; gap: 8px; }
             <li class="case">
               <span class="when">09.22 – 23</span>
               <div>
-                <h5>딥러닝으로 바꿔야 하나: 같은 조건 비교 연구</h5>
+                <h4>딥러닝으로 바꿔야 하나: 같은 조건 비교 연구</h4>
                 <dl>
-                  <dt>질문</dt><dd>사람이 임계값을 맞추는 구조 대신, 딥러닝이 "모르겠다"를 스스로 판단하게 할 수 있는지 확인했습니다.</dd>
-                  <dt>비교</dt><dd>프로토타입 거리, 합성 negative 클래스, Evidential Deep Learning(MLP), 관절 21개를 토큰으로 보는 HandFormer + EDL 5개 앙상블(Colab T4 178분)을 세션 단위 학습·검증·시험 분할로 비교했습니다.</dd>
+                  <dt>비교</dt><dd>합성 negative 클래스, Evidential Deep Learning(MLP), 관절 21개를 토큰으로 보는 HandFormer + EDL 5개 앙상블(Colab T4 178분)을 세션 단위 학습·검증·시험 분할로 운영 방식과 비교했습니다.</dd>
                   <dt>결과</dt><dd>분류는 동률(운영 방식 97.28%, 딥러닝 96.94%), 처음 보는 손 거르기는 운영 방식이 앞섰습니다(AUC 0.968 대 0.934). 그래서 SVM + 소속 게이트를 유지했습니다.</dd>
-                  <dt>배운 점</dt><dd>연구 도중 딥러닝 설정을 KPI 촬영 데이터로 고른 실수를 스스로 찾았습니다. 그 데이터로 고른 모델과 코드를 모두 지우고, 공개 데이터 안에서만 분할을 다시 짜서 비교를 처음부터 다시 했습니다.</dd>
+                  <dt>실수</dt><dd>연구 도중 딥러닝 설정을 KPI 촬영 데이터로 고른 것을 스스로 찾았습니다. 그 데이터로 고른 모델과 코드를 모두 지우고, 공개 데이터 안에서만 분할을 다시 짜서 비교를 처음부터 다시 했습니다.</dd>
                 </dl>
               </div>
             </li>
             <li class="case">
               <span class="when">09.29</span>
               <div>
-                <h5>외부 촬영 <span class="num">61.4%</span>, 일부만 빼지 않고 전부 버렸다</h5>
+                <h4>외부 촬영 <span class="num">61.4%</span>, 일부만 빼지 않고 전부 버렸다</h4>
                 <dl>
                   <dt>원인</dt><dd>외부인 70시도 중 20테이크가 정의와 다른 손 모양이었습니다.</dd>
                   <dt>조치</dt><dd>틀린 20테이크만 빼면 결과를 본 뒤 데이터를 고르는 셈이 됩니다. 팀 결정으로 전체를 폐기하고 팀원 3명이 RPi5 카메라로 210시도를 다시 찍었습니다.</dd>
@@ -489,16 +544,16 @@ footer .wrap { display: grid; gap: 8px; }
 
         <div class="two">
           <div class="block">
-            <h4>시스템 쪽 기여</h4>
+            <h3>시스템 쪽 기여</h3>
             <ul class="plain-list">
-              <li>장치 호출 순서를 바꿔, 판정 뒤 picar·micro:bit 반응이 약 0.85초 늦던 구조를 없앴습니다.</li>
+              <li>장치 호출 순서를 바꿔, 판정 뒤 picar·micro:bit 반응이 약 0.85초 늦던 구조를 없앴습니다. 팀원이 발견한 문제를 받아 결정하고 반영했습니다.</li>
               <li>직접 구현한 시행 로그 CSV가 판정 지연 KPI 2개의 원본 데이터가 됐습니다.</li>
-              <li>picar가 움직이면 카메라도 같이 움직이는 문제를 찾아, 카메라 보드(RPi5)와 주행 보드(RPi4B) 2대 구성을 제안했습니다.</li>
-              <li>DB 스키마를 실제 PostgreSQL 16에서 실행해 업그레이드·재실행·권한까지 확인했습니다. 그전에는 가짜 DB로만 시험하던 상태였습니다.</li>
+              <li>picar가 움직이면 카메라도 같이 움직이는 문제를 찾아, 카메라 보드(RPi5)와 주행 보드(RPi4B) 2대 구성을 문서와 구성 파일에 반영했습니다.</li>
+              <li>교육장 기기에서만 되던 가입·수료증 재발급을 위해 같은 회원 DB를 쓰는 회사 웹사이트를 제안·구현했습니다.</li>
             </ul>
           </div>
           <div class="block">
-            <h4>다음에 다르게 할 것</h4>
+            <h3>다음에 다르게 할 것</h3>
             <ul class="plain-list">
               <li>측정 도구를 만들면 정답을 아는 짧은 입력으로 도구부터 검증합니다.</li>
               <li>임계값 조정용 촬영과 평가용 촬영을 처음부터 나눠 모읍니다.</li>
@@ -518,153 +573,162 @@ footer .wrap { display: grid; gap: 8px; }
     </div>
   </section>
 
+  <section id="growth">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">협업 · 코드 관리</span>
+        <h2>결과만 올리던 방식에서, 과정이 남는 방식으로</h2>
+        <p>대학 시절에는 완성된 코드를 한 번에 올리는 방식이라 작업 과정이 기록으로 남지 않았습니다. 졸업 후 프로젝트를 하면서 커밋·브랜치·테스트로 과정을 남기고, 팀원과 계약을 정해 나눠 일하는 방식으로 바꿨습니다. 아래는 제 저장소 커밋 기록에서 직접 센 변화입니다.</p>
+      </div>
+
+      <div class="stages" role="table" aria-label="시기별 코드 관리 방식">
+        <div class="stage head" role="row"><span role="columnheader">시기</span><span role="columnheader">올리는 방식</span><span role="columnheader">검증</span><span role="columnheader">협업</span></div>
+        <div class="stage" role="row">
+          <div class="when" role="cell"><b>2024</b><span>ESP32 실습 16개 · IoT 팀 프로젝트</span><em>대학 수업</em></div>
+          <div class="cell" role="cell" data-k="올리는 방식">실습마다 커밋 1~2개. 팀 프로젝트는 커밋 26개 중 25개가 웹 업로드였고, 폴더를 지웠다가 다시 올렸습니다.
+            <div class="upbar" aria-label="웹 업로드 비율 96%"><div class="bar"><i style="width:96%"></i></div><span>96%</span></div></div>
+          <div class="cell" role="cell" data-k="검증">테스트 없음. 보드에 올려 눈으로 확인했습니다.</div>
+          <div class="cell" role="cell" data-k="협업">3인이 한 브랜치에 각자 폴더를 업로드했습니다.</div>
+        </div>
+        <div class="stage" role="row">
+          <div class="when" role="cell"><b>2025</b><span>AI 스피커 · 낙상 감지</span><em>대학 수업 · 졸업 작품</em></div>
+          <div class="cell" role="cell" data-k="올리는 방식">웹 업로드 비율 56~100%. AI 코딩 도구가 만든 PR 5건을 병합하며 브랜치와 PR을 처음 써 봤습니다.
+            <div class="upbar" aria-label="웹 업로드 비율 75%"><div class="bar"><i style="width:75%"></i></div><span>75%</span></div></div>
+          <div class="cell" role="cell" data-k="검증">직접 실행해 동작을 확인했고, 자동 테스트와 설정 파일 분리는 아직 없었습니다.</div>
+          <div class="cell" role="cell" data-k="협업">개인 작업</div>
+        </div>
+        <div class="divider" role="row"><span role="cell">졸업 후</span></div>
+        <div class="stage after" role="row">
+          <div class="when" role="cell"><b>2026.08</b><span>손동작 원격 드로잉 보드</span><em>졸업 후 프로젝트</em></div>
+          <div class="cell" role="cell" data-k="올리는 방식">커밋 41개, 그중 80%가 feat·fix·docs·ci 같은 규칙 있는 메시지. 기능 단위로 나눠 커밋했습니다.
+            <div class="upbar" aria-label="웹 업로드 비율 0%"><div class="bar"><i style="width:0%"></i></div><span>0%</span></div></div>
+          <div class="cell" role="cell" data-k="검증">pytest 112개, ruff·mypy, GitHub Actions CI. 리팩토링 전에 베이스라인을 먼저 측정했습니다.</div>
+          <div class="cell" role="cell" data-k="협업">컨테이너 사이 메시지 형식을 정한 계약 문서와 운영 문서를 남겼습니다.</div>
+        </div>
+        <div class="stage after now" role="row">
+          <div class="when" role="cell"><b>2026.09</b><span>SafeSign · 4인 팀</span><em>졸업 후 프로젝트</em></div>
+          <div class="cell" role="cell" data-k="올리는 방식">팀 커밋 186개(제 커밋 32개), 원격 브랜치 9개, 병합 30회. 모델 가중치와 .env는 저장소 밖에 두고 .env.example만 올렸습니다.
+            <div class="upbar" aria-label="웹 업로드 비율 0%"><div class="bar"><i style="width:0%"></i></div><span>0%</span></div></div>
+          <div class="cell" role="cell" data-k="검증">테스트 파일 25개와 CI. 팀원이 먼저 쓴 인수 테스트 22개를 통과시키는 방식으로 백엔드를 넘겨받았습니다.</div>
+          <div class="cell" role="cell" data-k="협업">역할표(RACI), 인터페이스 계약, 서비스별 브랜치, 결정 기록이 있는 회의 자료로 일했습니다.</div>
+        </div>
+      </div>
+      <p class="note">막대는 커밋 중 GitHub 웹 화면의 "Add files via upload"·"Update"·"Create" 커밋 비율입니다. 2025년 막대는 낙상 감지 저장소 기준입니다.</p>
+
+      <div class="collab">
+        <div class="collab-item">
+          <h4>계약을 먼저 정하고 나눠서 개발</h4>
+          <p>팀 저장소를 처음 만들 때 서비스 4개의 뼈대와 서비스 사이에 주고받을 데이터 형식(JSON 스키마 4종)부터 정했습니다. 덕분에 4명이 각자 다른 서비스를 동시에 만들 수 있었습니다.</p>
+        </div>
+        <div class="collab-item">
+          <h4>서비스별 브랜치와 통합 브랜치</h4>
+          <p>vision·web·actuation·picar·data를 각자 기능 브랜치에서 만들고 dev 브랜치에 모았습니다. 4개 서비스의 1차 통합 병합을 맡았습니다.</p>
+        </div>
+        <div class="collab-item">
+          <h4>테스트로 작업을 넘겨받기</h4>
+          <p>팀원이 응답 판정 기준표와 인수 테스트 22개를 먼저 쓰고, 그 테스트를 통과하는 코드를 구현했습니다. 목표일보다 이틀 빠르게 병합됐습니다.</p>
+        </div>
+        <div class="collab-item">
+          <h4>실험은 운영 코드와 분리</h4>
+          <p>딥러닝 비교 연구는 별도 브랜치에서 진행하고 dev에 병합하지 않았습니다. 결론만 문서로 옮겨 운영 코드에 섞이지 않게 했습니다.</p>
+        </div>
+        <div class="collab-item">
+          <h4>결정은 근거와 함께 기록</h4>
+          <p>회의 자료마다 선택지·근거 수치·권고를 붙였고, 안건별 결정권자를 정해 결정을 기록했습니다. 화면 디자인을 바꿀 때도 화면 흐름과 기능 계약은 그대로 두어 팀원이 만든 테스트가 계속 통과하게 했습니다.</p>
+        </div>
+        <div class="collab-item">
+          <h4>대학 시절 저장소 정리</h4>
+          <p>2026년 10월에 대학 시절 저장소를 포함한 30개의 코드를 다시 읽고 README를 정리했습니다. 코드에 남아 있던 비밀 정보도 점검했습니다. 이 작업에는 Claude Code를 함께 썼습니다.</p>
+        </div>
+      </div>
+
+      <div class="gap-box">
+        <h4>아직 부족한 점</h4>
+        <p>SafeSign에서도 GitHub PR은 1건뿐이었고, 코드 리뷰는 PR 댓글이 아니라 회의와 문서로 했습니다. 다음 프로젝트에서는 PR 단위로 리뷰를 받고 이슈로 할 일을 관리하는 것이 목표입니다.</p>
+      </div>
+    </div>
+  </section>
+
   <section id="projects">
     <div class="wrap">
       <div class="sec-head">
         <span class="label">그 밖의 프로젝트</span>
         <h2>프로젝트</h2>
-        <p>분야별로 묶었습니다. 비공개 표시가 있는 저장소는 링크가 열리지 않습니다.</p>
+        <p>비공개 표시가 있는 저장소는 링크가 열리지 않습니다.</p>
       </div>
 
       <div class="group">
-        <h3>컴퓨터 비전 · AI</h3>
-        <span class="label">vision · ml</span>
+        <div class="group-head"><h3>졸업 후 프로젝트</h3><span>2026</span></div>
 
         <div class="proj">
           <div>
             <h4><a href="https://github.com/Lee35678/Real-time-Hand-Gesture-Recognition-Remote-Drawing-Board">실시간 손동작 인식 원격 드로잉 보드</a></h4>
-            <p class="desc">휴대폰 카메라로 손을 비추면 PC 화면의 캔버스에 그림이 그려지는 비접촉 드로잉 보드입니다. 검지는 그리기, 검지+중지는 지우기, 엄지 개입은 확대·축소로 인식합니다.</p>
-            <ul class="points">
-              <li>web · vision-analysis · pattern-command · canvas 4개 컨테이너로 나눈 구조, One Euro Filter로 랜드마크 떨림 보정</li>
-              <li>리팩토링 전에 베이스라인부터 측정: 전처리·스무딩·직렬화 합계가 p99 약 1.8ms라 병렬화가 필요 없다고 판단</li>
-              <li>ruff · mypy · pytest(테스트 112개) GitHub Actions CI 구성. 카메라 기반 수치는 측정하지 못했다고 문서에 그대로 남김</li>
-            </ul>
+            <p class="desc">휴대폰 카메라로 손을 비추면 PC 화면의 캔버스에 그림이 그려집니다. 검지는 그리기, 검지+중지는 지우기, 엄지 개입은 확대·축소입니다.</p>
+            <dl>
+              <dt>구조</dt><dd>web · vision-analysis · pattern-command · canvas 4개 컨테이너. 카메라 추론과 제스처 판정을 나눠 각각 따로 시험할 수 있게 했습니다.</dd>
+              <dt>판단</dt><dd>리팩토링 전에 베이스라인부터 쟀습니다. 전처리·스무딩·직렬화 합계가 p99 약 1.8ms라 병렬화는 필요 없다고 판단했고, 카메라 수치는 측정하지 못했다고 그대로 기록했습니다.</dd>
+            </dl>
           </div>
-          <aside><span class="date">2026.08</span><span>MediaPipe · FastAPI · WebSocket · Docker Compose</span></aside>
+          <aside><span class="date">2026.08</span><span>MediaPipe · One Euro Filter · FastAPI · WebSocket · Docker Compose</span></aside>
         </div>
 
         <div class="proj">
           <div>
             <h4><a href="https://github.com/Lee35678/Real-time-OCR-based-text-extraction">StreamOCR · 실시간 텍스트 추출</a></h4>
-            <p class="desc">브라우저 카메라 프레임을 WebSocket으로 FastAPI 서버에 보내, OpenCV 전처리와 Tesseract로 영문 텍스트를 실시간 추출합니다.</p>
-            <ul class="points">
-              <li>최신 프레임 우선 큐, Laplacian 선명도 판별로 흐린 프레임 건너뛰기</li>
-              <li>ProcessPoolExecutor로 Tesseract 워커를 분리하고, 확신도 필터와 프레임 간 중복 제거 적용</li>
-            </ul>
+            <p class="desc">브라우저 카메라 프레임을 WebSocket으로 서버에 보내, OpenCV 전처리와 Tesseract로 영문 텍스트를 실시간 추출합니다.</p>
+            <dl>
+              <dt>구조</dt><dd>OCR이 프레임보다 느리므로 최신 프레임만 남기는 큐를 두고, 흐린 프레임은 Laplacian 선명도로 건너뜁니다. Tesseract는 별도 프로세스 풀에서 돌려 서버 응답을 막지 않게 했습니다.</dd>
+            </dl>
           </div>
           <aside><span class="date">2026.08</span><span>OpenCV · Tesseract · FastAPI · nginx</span></aside>
         </div>
 
         <div class="proj">
           <div>
-            <h4><a href="https://github.com/Lee35678/Fall_Detection">웹캠 낙상 감지</a></h4>
-            <p class="desc">사전학습 MobileNetV2로 프레임마다 1280차원 특징을 뽑고, 32프레임 시퀀스를 LSTM으로 분류해 실시간으로 낙상을 감지합니다.</p>
-            <ul class="points">
-              <li>Colab에서 특징 추출·학습, 로컬 웹캠에서 슬라이딩 윈도우 실시간 판정</li>
-              <li>검증 정확도 99.42%는 무작위 8:2 분할 기준이며 별도 시험셋이 없습니다. SafeSign에서 세운 기준으로 보면 영상 단위로 다시 나눠 재야 할 수치입니다.</li>
-            </ul>
+            <h4><a href="https://github.com/Lee35678/AI_Agent">Physical AI 멀티 에이전트 조직</a></h4>
+            <p class="desc">CEO 역할의 지시를 총괄 PM 에이전트가 분석해, 5개 부서 에이전트 중 필요한 곳에만 일을 나눠 주고 보고서를 만듭니다.</p>
+            <dl>
+              <dt>구조</dt><dd>CrewAI 계층형 프로세스. 모든 부서를 매번 부르면 비용과 시간이 커서, PM이 필요한 부서만 고르게 했습니다. Docker로 한 줄 실행됩니다.</dd>
+            </dl>
           </div>
-          <aside><span class="date">2025.06</span><span>TensorFlow · MobileNetV2 · LSTM · OpenCV</span></aside>
+          <aside><span class="date">2026.08</span><span>CrewAI · Gemini · Docker</span></aside>
         </div>
+      </div>
+
+      <div class="group">
+        <div class="group-head"><h3>대학 시절 프로젝트</h3><span>2024 – 2025 · 수업 프로젝트와 졸업 작품</span></div>
 
         <div class="proj">
           <div>
             <h4>AI 스피커 + 낙상 알림 <span class="priv">비공개</span></h4>
-            <p class="desc">웨이크워드("실비야")로 부르는 한국어 음성 비서와, 웹캠 낙상 감지·푸시 알림을 한 프로그램에서 동시에 실행합니다.</p>
-            <ul class="points">
-              <li>Google Cloud STT/TTS, Gemini, 웹 검색 결과를 결합한 답변</li>
-              <li>MoveNet Lightning(TFLite) 자세 추정으로 낙상 판단 → Firebase Cloud Messaging으로 안드로이드 알림</li>
-            </ul>
+            <p class="desc">웨이크워드("실비야")로 부르는 한국어 음성 비서와 웹캠 낙상 감지·푸시 알림을 한 프로그램에서 동시에 실행합니다.</p>
+            <dl>
+              <dt>구성</dt><dd>Google Cloud STT/TTS와 Gemini로 대화하고, MoveNet Lightning(TFLite)으로 자세를 추정해 낙상이면 Firebase Cloud Messaging으로 안드로이드에 알립니다.</dd>
+            </dl>
           </div>
           <aside><span class="date">2025.03 – 06</span><span>TFLite · Gemini API · FCM</span></aside>
         </div>
 
         <div class="proj">
           <div>
-            <h4><a href="https://github.com/Lee35678/AI_Agent">Physical AI 멀티 에이전트 조직</a></h4>
-            <p class="desc">CEO 역할의 지시를 총괄 PM 에이전트가 분석해 하드웨어·임베디드·AI·기획·웹 5개 부서 에이전트 중 필요한 곳에만 배분하고 보고서를 만듭니다.</p>
-            <ul class="points">
-              <li>CrewAI 계층형 프로세스, 부서별 문서 읽기·웹페이지 수정 도구, Docker로 한 줄 실행</li>
-              <li>이 시스템으로 낙상 감지 서비스 기획서(PRD)와 소개 페이지를 만들어 함께 보관</li>
-            </ul>
+            <h4><a href="https://github.com/Lee35678/Fall_Detection">웹캠 낙상 감지</a></h4>
+            <p class="desc">사전학습 MobileNetV2로 프레임 특징을 뽑고, 32프레임 시퀀스를 LSTM으로 분류합니다.</p>
+            <dl>
+              <dt>돌아보기</dt><dd>검증 정확도 99.42%는 무작위 8:2 분할 기준이고 별도 시험셋이 없습니다. SafeSign에서 세운 기준으로 보면 영상 단위로 다시 나눠 재야 하는 수치입니다.</dd>
+            </dl>
           </div>
-          <aside><span class="date">2026.08</span><span>CrewAI · Gemini · Docker</span></aside>
+          <aside><span class="date">2025.06</span><span>TensorFlow · MobileNetV2 · LSTM</span></aside>
         </div>
 
         <div class="proj">
           <div>
-            <h4><a href="https://github.com/Lee35678/YOLO_Train">YOLO26 파인튜닝 인터랙티브 교재</a></h4>
-            <p class="desc">전이학습·AMP·레이어 프리징·학습률 같은 파인튜닝 인자를 직접 조작하며 배우는 7장짜리 HTML 교재입니다.</p>
+            <h4>ESP32 · MQTT IoT <span class="priv">비공개</span></h4>
+            <p class="desc">ESP32 펌웨어 실습 16개(GPIO·인터럽트·ADC 필터·TFT·Wi-Fi·웹 서버·캡티브 포털)와, 센서·릴레이·펌프 노드 여러 대를 MQTT로 연결한 3인 팀 프로젝트입니다.</p>
+            <dl>
+              <dt>담당</dt><dd>팀 프로젝트에서 환경 센서 노드(DHT22·BH1750·TFT 표시), 릴레이 제어 노드, Python 제어 서버를 맡았습니다. Wi-Fi와 브로커 주소는 코드에 넣지 않고 설정 페이지에서 받게 했습니다.</dd>
+            </dl>
           </div>
-          <aside><span class="date">2026.08</span><span>HTML · JavaScript</span></aside>
-        </div>
-
-        <div class="proj">
-          <div>
-            <h4><a href="https://github.com/Lee35678/Heart-disease">심장질환 분류 · NumPy 신경망</a></h4>
-            <p class="desc">PCA와 2층 신경망의 오차 역전파를 라이브러리 없이 NumPy로 직접 구현한 과제입니다. 학습 데이터로만 평가한 한계를 README에 적어 두었습니다.</p>
-          </div>
-          <aside><span class="date">2024.07</span><span>NumPy · pandas · matplotlib</span></aside>
-        </div>
-      </div>
-
-      <div class="group">
-        <h3>임베디드 · IoT</h3>
-        <span class="label">embedded · iot</span>
-
-        <div class="proj">
-          <div>
-            <h4>MQTT 스마트팜 IoT 팀 프로젝트 <span class="priv">비공개</span></h4>
-            <p class="desc">ESP32 보드 여러 대의 센서(온습도·조도·거리·수위·토양 수분)와 액추에이터(릴레이·워터펌프·네오픽셀)를 MQTT 브로커로 연결한 3인 팀 프로젝트입니다.</p>
-            <ul class="points">
-              <li>담당: 환경 센서 노드(DHT22·BH1750·TFT 표시), 릴레이 제어 노드, Python 제어 서버</li>
-              <li>Wi-Fi·브로커 주소를 코드에 넣지 않고 ConfigPortal 설정 페이지에서 입력받는 구조</li>
-            </ul>
-          </div>
-          <aside><span class="date">2024.12</span><span>ESP32 · MQTT · PlatformIO · Python</span></aside>
-        </div>
-
-        <div class="proj">
-          <div>
-            <h4>ESP32 펌웨어 실습 16개 <span class="priv">비공개</span></h4>
-            <p class="desc">GPIO부터 네트워크까지 단계별로 만든 PlatformIO 프로젝트입니다.</p>
-            <div class="esp-grid" aria-label="ESP32 실습 목록">
-              <div><b>입출력</b><span>LED · 인터럽트 릴레이 · WS2812</span></div>
-              <div><b>센서 신호</b><span>ADC 밝기 · EMA 저역통과 필터 · 초음파</span></div>
-              <div><b>디스플레이</b><span>T-Display-S3 TFT · QR 코드 · 조도 램프 스위치</span></div>
-              <div><b>네트워크</b><span>Wi-Fi · mDNS · HTTP · 웹 서버 · 캡티브 포털 · MQTT</span></div>
-            </div>
-          </div>
-          <aside><span class="date">2024.09 – 12</span><span>ESP32 · ESP32-S3 · Arduino</span></aside>
-        </div>
-      </div>
-
-      <div class="group">
-        <h3>개발 환경 · 기초</h3>
-        <span class="label">tooling</span>
-
-        <div class="proj">
-          <div>
-            <h4><a href="https://github.com/Lee35678/linux">ARM64 라즈베리파이 실습 컨테이너</a></h4>
-            <p class="desc">라즈베리파이 없이 PC에서 ARM64 Ubuntu 컨테이너(QEMU)로 SSH 접속과 ONNX Runtime 설치를 연습하는 Docker 템플릿입니다.</p>
-          </div>
-          <aside><span class="date">2026.08</span><span>Docker · QEMU · ONNX Runtime</span></aside>
-        </div>
-
-        <div class="proj">
-          <div>
-            <h4><a href="https://github.com/Lee35678/CI">pytest · GitHub Actions 연습</a></h4>
-            <p class="desc">fixture·caplog·mocker를 쓴 단위 테스트와 push·PR 시 자동 실행되는 CI를 연습했습니다.</p>
-          </div>
-          <aside><span class="date">2026.08</span><span>pytest · GitHub Actions</span></aside>
-        </div>
-
-        <div class="proj">
-          <div>
-            <h4>음료 자판기 <span class="priv">비공개</span></h4>
-            <p class="desc">CLI와 Tkinter GUI를 함께 띄우는 자판기 프로그램입니다. 재고·잔돈 계산과 시간대별 매출 그래프를 만들었습니다.</p>
-          </div>
-          <aside><span class="date">2025.06</span><span>Python · Tkinter · matplotlib</span></aside>
+          <aside><span class="date">2024.09 – 12</span><span>ESP32 · PlatformIO · MQTT</span></aside>
         </div>
       </div>
     </div>
@@ -674,33 +738,17 @@ footer .wrap { display: grid; gap: 8px; }
     <div class="wrap">
       <div class="sec-head">
         <span class="label">기술</span>
-        <h2>기술과 쓴 곳</h2>
-        <p>기술 이름 옆에 실제로 쓴 프로젝트를 함께 적었습니다.</p>
+        <h2>기술과 고른 이유</h2>
       </div>
-      <div class="skills">
-        <div class="skill"><h3>컴퓨터 비전</h3><p class="tools">MediaPipe Hand Landmarker · OpenCV · picamera2 · MoveNet · Tesseract</p><p class="proof">SafeSign, 손동작 드로잉 보드, StreamOCR, AI 스피커</p></div>
-        <div class="skill"><h3>머신러닝</h3><p class="tools">scikit-learn(SVM, 확률 보정, GroupKFold) · TensorFlow/Keras · TFLite · Transformer·EDL 실험</p><p class="proof">SafeSign, 낙상 감지, NumPy 신경망</p></div>
-        <div class="skill"><h3>평가 설계</h3><p class="tools">세션 단위 분할 · Wilson 95% 신뢰구간 · 한 클래스 빼기 open-set 평가 · 결과 보기 전 규칙 고정</p><p class="proof">SafeSign 판정 성능 KPI 5개</p></div>
-        <div class="skill"><h3>백엔드 · 인프라</h3><p class="tools">FastAPI · WebSocket · Supabase(PostgreSQL) · Docker Compose · GitHub Actions · pytest · ruff · mypy</p><p class="proof">SafeSign, 손동작 드로잉 보드, StreamOCR, CI</p></div>
-        <div class="skill"><h3>임베디드</h3><p class="tools">Raspberry Pi 5 · Raspberry Pi 4B · ESP32 / ESP32-S3 · PlatformIO · MQTT · micro:bit 시리얼</p><p class="proof">SafeSign, MQTT IoT 팀 프로젝트, ESP32 실습</p></div>
-        <div class="skill"><h3>LLM · 에이전트</h3><p class="tools">Gemini API · CrewAI · Claude Code(문서·디자인 작업 보조)</p><p class="proof">AI 에이전트 조직, AI 스피커, SafeSign 화면 리뉴얼</p></div>
+      <div class="skills" role="table" aria-label="기술 스택과 사용 이유">
+        <div class="skill head" role="row"><span role="columnheader">분야</span><span role="columnheader">기술</span><span role="columnheader">왜 썼나</span></div>
+        <div class="skill" role="row"><h3 role="cell">컴퓨터 비전</h3><p class="tools" role="cell">MediaPipe Hand Landmarker · OpenCV · picamera2 · MoveNet</p><p class="why" role="cell">사진 대신 손 관절 좌표로 다루면 조명·배경 영향이 줄고, 라즈베리파이 CPU에서도 실시간으로 돌릴 수 있습니다.</p></div>
+        <div class="skill" role="row"><h3 role="cell">머신러닝</h3><p class="tools" role="cell">scikit-learn(SVM, 확률 보정, GroupKFold) · TensorFlow/Keras · TFLite</p><p class="why" role="cell">데이터가 적고 판정 근거를 설명해야 할 때는 SVM을 썼습니다. 딥러닝은 같은 조건으로 비교한 뒤에만 채택 여부를 정했습니다.</p></div>
+        <div class="skill" role="row"><h3 role="cell">평가</h3><p class="tools" role="cell">세션 단위 분할 · Wilson 95% 신뢰구간 · open-set 평가</p><p class="why" role="cell">표본이 수백 건이면 점 하나로는 목표 달성을 말하기 어려워, 신뢰구간과 함께 보고했습니다.</p></div>
+        <div class="skill" role="row"><h3 role="cell">백엔드</h3><p class="tools" role="cell">FastAPI · WebSocket · Supabase(PostgreSQL)</p><p class="why" role="cell">서비스마다 작은 HTTP API로 나누면 팀원이 계약만 보고 각자 개발할 수 있습니다. 회원 기능은 인증과 DB를 함께 주는 Supabase로 만들었습니다.</p></div>
+        <div class="skill" role="row"><h3 role="cell">개발 방식</h3><p class="tools" role="cell">Git 브랜치 · Docker Compose · pytest · GitHub Actions · ruff · mypy</p><p class="why" role="cell">여러 서비스를 한 명령으로 띄우고, 고친 코드가 기존 동작을 깨지 않았는지 자동으로 확인하려고 썼습니다.</p></div>
+        <div class="skill" role="row"><h3 role="cell">임베디드</h3><p class="tools" role="cell">Raspberry Pi 5 · Raspberry Pi 4B · ESP32 · PlatformIO · MQTT</p><p class="why" role="cell">카메라 보드와 주행 보드를 나눠 움직이는 장치가 카메라를 흔들지 않게 했고, 센서 노드가 많은 IoT 프로젝트에서는 MQTT로 묶었습니다.</p></div>
       </div>
-    </div>
-  </section>
-
-  <section id="timeline">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="label">이력</span>
-        <h2>걸어온 순서</h2>
-      </div>
-      <ol class="timeline">
-        <li><span class="y">2024.07</span><span>NumPy로 신경망을 직접 구현하며 머신러닝 기초를 다짐</span></li>
-        <li><span class="y">2024.09 – 12</span><span>ESP32 펌웨어 실습 16개, MQTT IoT 팀 프로젝트</span></li>
-        <li><span class="y">2025.03 – 06</span><span>AI 스피커, 웹캠 낙상 감지(MobileNetV2 + LSTM), 자판기 프로그램</span></li>
-        <li><span class="y">2026.08</span><span>멀티 에이전트, YOLO 교재, ARM64 컨테이너, CI 연습, StreamOCR, 손동작 드로잉 보드</span></li>
-        <li><span class="y">2026.09 – 10</span><span>SafeSign PhysicalAI · 수신호 판정 비전 파이프라인과 판정 성능 측정</span></li>
-      </ol>
     </div>
   </section>
 </main>
