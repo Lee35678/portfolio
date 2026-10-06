@@ -31,7 +31,7 @@
       <span class="label">대표 프로젝트 02 · 졸업 작품 · 2025.03 – 06 개발 · 2026.02 졸업논문</span>
       <h1>독거노인 관리 시스템</h1>
       <p class="one">카메라와 마이크로 혼자 사는 노인의 상태를 지켜보다가 넘어지면 바로 알리고, 음성으로 말을 걸면 답해 주는 말벗 AI 스피커입니다.</p>
-      <div class="linkrow"><a class="btn" href="https://github.com/Lee35678/AI_Speaker_new">GitHub · 개선판</a><a class="btn" href="https://github.com/Lee35678/AI_Speaker">GitHub · 1차 버전</a><span class="btn off">졸업논문 · 한국공학대학교 전자공학부</span></div>
+      <div class="linkrow"><a class="btn" href="https://github.com/Lee35678/AI_Speaker_new">GitHub · 개선판</a><a class="btn" href="https://github.com/Lee35678/AI_Speaker">GitHub · 1차 버전</a><a class="btn" href="https://github.com/Lee35678/Fall_Detection">GitHub · 낙상 후보 모델</a><span class="btn off">졸업논문 · 한국공학대학교 전자공학부</span></div>
     </div>
 
     <div class="rolebox" id="role">
@@ -49,6 +49,7 @@
           <li>음성 출력과 단계별 대체 경로(VAD·TTS·클라우드 인증)</li>
           <li>MoveNet 관절 좌표 기반 2단계 낙상 판정</li>
           <li>Firebase Cloud Messaging 토픽 푸시, 안드로이드 수신 예시</li>
+          <li>낙상 감지 학습 모델 후보(MobileNetV2 + LSTM) 개발</li>
         </ul>
       </div>
       <p class="others-did">팀 시스템의 다른 구성 요소 · 라즈베리파이 4B 중심 구성, 아두이노와 SG90 서보모터로 움직이는 팬·틸트 카메라, C# WinForms 관리자 프로그램(실시간 영상·카메라 제어·응급 알림), 소리 크기 기반 응급 감지, URFD 데이터셋 Bi-LSTM 낙상 모델</p>
@@ -99,6 +100,12 @@
         <p class="note">배경 차분은 사람이 아닌 움직임에도 반응하고, 한 번 크게 움직인 것만으로는 넘어졌다고 보기 어렵습니다. 그래서 의심과 확인을 나눠 한 순간의 움직임만으로 알리지 않게 했습니다.</p>
       </div>
 
+      <div class="block" id="candidate">
+        <h3>낙상 감지 학습 모델 · 처음 시도한 후보</h3>
+        <p>규칙 기반 판단과 별개로, 졸업 작품의 낙상 감지 모델을 만들기 위해 처음에는 사전학습 MobileNetV2로 프레임 특징을 뽑아 32프레임 시퀀스를 LSTM으로 분류하는 방식을 시도했습니다. UBFC 데이터셋 검증 정확도는 99.42%였지만, 영상 클립을 무작위로 나눈 결과라 처음 보는 환경의 성능으로 볼 수 없었습니다. 최종 모델은 관절 좌표 입력의 Bi-LSTM으로 바뀌었습니다(논문 4장).</p>
+        <div class="linkrow" style="margin-top:12px"><a class="btn" href="fall-detection.html">후보 모델 자세히 보기</a></div>
+      </div>
+
       <div class="two" id="limits">
         <div class="block">
           <h3>한계</h3>
@@ -122,7 +129,7 @@
 
     <nav class="next-page" aria-label="다른 프로젝트">
       <a href="safesign.html">← 이전 · SafeSign PhysicalAI</a>
-      <a href="fall-detection.html">다음 · 영상 시퀀스 낙상 감지 →</a>
+      <a href="fall-detection.html">다음 · 낙상 감지 후보 모델 →</a>
     </nav>
   </div>
 </main>

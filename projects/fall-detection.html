@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>영상 시퀀스 낙상 감지 · 이동혁</title>
-<meta name="description" content="MobileNetV2 특징 + LSTM으로 32프레임 시퀀스를 분류하는 웹캠 실시간 낙상 감지">
+<title>낙상 감지 후보 모델 · 이동혁</title>
+<meta name="description" content="졸업 작품 낙상 감지 모델의 첫 후보 · MobileNetV2 특징 + LSTM 시퀀스 분류">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
@@ -25,21 +25,21 @@
 
 <main>
   <div class="wrap">
-    <p class="crumb"><a href="../index.html">← 전체 포트폴리오</a></p>
+    <p class="crumb"><a href="../index.html">← 전체 포트폴리오</a> · <a href="ai-speaker.html">독거노인 관리 시스템</a></p>
     <div class="page-head">
-      <span class="label">대표 프로젝트 03 · 2025.06 · 개인</span>
-      <h1>영상 시퀀스 낙상 감지</h1>
-      <p class="one">사전학습 MobileNetV2로 프레임 특징을 뽑고, 32프레임 시퀀스를 LSTM으로 분류해 웹캠 영상에서 실시간으로 낙상을 판단합니다.</p>
+      <span class="label">독거노인 관리 시스템(졸업 작품) · 낙상 감지 후보 모델 · 2025.06</span>
+      <h1>낙상 감지 후보 모델</h1>
+      <p class="one">졸업 작품의 낙상 감지 모델을 만들기 위해 처음 시도한 방식입니다. 사전학습 MobileNetV2로 프레임 특징을 뽑고, 32프레임 시퀀스를 LSTM으로 분류해 웹캠 영상에서 실시간으로 낙상을 판단합니다.</p>
       <div class="linkrow"><a class="btn" href="https://github.com/Lee35678/Fall_Detection">GitHub</a></div>
     </div>
 
     <div class="rolebox">
       <div class="role-top">
-        <div><span class="role-k">TYPE</span><b>개인 프로젝트</b></div>
+        <div><span class="role-k">TYPE</span><b>졸업 작품의 후보 모델</b></div>
         <div><span class="role-k">MY ROLE</span><b>전체</b><p>특징 추출 · LSTM 학습 · 웹캠 실시간 감지</p></div>
         <div><span class="role-k">DATA</span><b>UBFC Fall Detection Dataset</b><p>실험실 환경 낙상/비낙상 영상</p></div>
       </div>
-      <p class="others-did">같은 낙상 문제를 세 가지 방식으로 풀어 봤습니다 · 배경 차분 규칙(2025.03) → MoveNet 관절 규칙(2025.05 – 06, <a href="ai-speaker.html">독거노인 관리 시스템</a>) → 학습한 시퀀스 모델(2025.06, 이 프로젝트)</p>
+      <p class="others-did">제가 시도한 낙상 판단 방식 · 배경 차분 규칙(2025.03) → MoveNet 관절 규칙(2025.05 – 06) → 학습한 시퀀스 모델 후보(2025.06, 이 페이지). 졸업 작품의 최종 낙상 모델은 픽셀 특징 대신 MediaPipe Pose 관절 좌표와 Bi-LSTM, URFD 데이터셋을 쓰는 방식으로 바뀌었습니다(<a href="ai-speaker.html">졸업논문 4장</a>).</p>
     </div>
   </div>
 
@@ -76,6 +76,7 @@
             <li>클립 단위 무작위 분할이라 같은 장소·같은 인물의 클립이 학습과 검증에 함께 들어갈 수 있습니다. 99.42%는 처음 보는 환경에서의 성능이 아닙니다.</li>
             <li>모델 파일을 못 읽으면 학습되지 않은 더미 모델로 조용히 실행되는 경로가 있었습니다. 결과가 틀려도 알아차리기 어렵습니다.</li>
             <li>영상을 프레임 묶음으로 바꾸는 스크립트가 저장소에 없어, 같은 결과를 다시 만들기 어렵습니다.</li>
+            <li>프레임 픽셀에서 뽑은 특징은 조명·배경 변화의 영향을 받습니다. 최종 모델이 관절 좌표 입력으로 바뀐 것도 이 때문입니다.</li>
           </ul>
         </div>
         <div class="block">
@@ -90,7 +91,7 @@
     </article>
 
     <nav class="next-page" aria-label="다른 프로젝트">
-      <a href="ai-speaker.html">← 이전 · 독거노인 관리 시스템</a>
+      <a href="ai-speaker.html">← 독거노인 관리 시스템으로</a>
       <a href="../index.html">전체 포트폴리오 →</a>
     </nav>
   </div>
