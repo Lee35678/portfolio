@@ -19,6 +19,7 @@
       <a href="#featured">대표 프로젝트</a>
       <a href="#path">성장 과정</a>
       <a href="#skills">기술</a>
+      <a href="#edu">학력</a>
       <a href="#contact">연락처</a>
     </nav>
   </div>
@@ -29,10 +30,11 @@
     <div class="hero">
       <div class="hero-top">
         <div>
-          <p class="hello">안녕하세요, AI · Computer Vision 개발자 이동혁입니다.</p>
+          <p class="hello">안녕하세요, 임베디드시스템을 전공한 AI · Computer Vision 개발자 이동혁입니다.</p>
           <h1>Computer Vision을 <em>실제 장치 위에서</em> 동작시킵니다.</h1>
           <p class="lead">카메라 영상을 AI로 판정하고, 그 결과로 라즈베리파이·로봇 손·주행 로봇·휴대폰 알림 같은 실제 장치를 움직이는 시스템을 만듭니다. 성능 숫자는 어떤 데이터로 어떻게 쟀는지와 함께 보고합니다.</p>
           <div class="tags"><span>Computer Vision</span><span>Edge AI</span><span>Physical AI</span></div>
+          <p class="contact"><span>GitHub <a href="https://github.com/Lee35678">github.com/Lee35678</a></span><span>Email <a href="mailto:lpjhh0320@gmail.com">lpjhh0320@gmail.com</a></span></p>
         </div>
         <figure class="hand" aria-label="MediaPipe 손 랜드마크 21개 구조도">
           <svg viewBox="0 0 200 250" role="img">
@@ -110,15 +112,15 @@
         </li>
 
         <li class="fp">
-          <div class="fp-head"><span class="fp-no">02</span><h3>AI 스피커 + 낙상 알림</h3><span class="chip">2025.03 – 06</span><span class="chip strong">졸업 작품</span></div>
-          <p class="one">웨이크워드로 부르는 한국어 음성 비서와, 웹캠으로 낙상을 감지해 휴대폰으로 알리는 기능을 한 프로그램에서 동시에 실행합니다.</p>
+          <div class="fp-head"><span class="fp-no">02</span><h3>독거노인 관리 시스템</h3><span class="chip">2025.03 – 2026.02</span><span class="chip">4인 팀</span><span class="chip strong">졸업 작품 · 음성 비서 · 낙상 알림</span></div>
+          <p class="one">카메라와 마이크로 혼자 사는 노인을 지켜보다가 넘어지면 바로 알리고, 음성으로 말을 걸면 답해 주는 말벗 AI 스피커입니다.</p>
           <dl>
-            <dt>문제</dt><dd>음성 인식·답변 생성·음성 출력과 영상 낙상 감지를 한 장치에서 함께 돌리고, 넘어진 순간을 바로 알려야 했습니다.</dd>
-            <dt>내 역할</dt><dd>음성 비서, 낙상 감지, 푸시 알림 모듈 구현</dd>
-            <dt>기술</dt><dd>Google Cloud STT/TTS · Gemini · 웹 검색 결합 답변 · MoveNet(TFLite) · Firebase Cloud Messaging · Android</dd>
-            <dt>개선</dt><dd>1차 버전의 배경 차분 + 가로세로 비율 판정을, MoveNet 관절 좌표로 "의심 → 확인" 2단계 판정으로 바꿨습니다.</dd>
+            <dt>문제</dt><dd>65세 이상 인구가 20.4%(2025.03)에 이르고 고령자 1인 가구가 늘지만, 복지 지원은 지역에 따라 사각지대가 있습니다.</dd>
+            <dt>내 역할</dt><dd>음성 비서 시스템 전체(호출어·STT·RAG 답변·TTS)와 웹캠 낙상 감지·휴대폰 푸시 알림</dd>
+            <dt>기술</dt><dd>Google Cloud STT/TTS · Porcupine · Gemini · 웹 검색 RAG · MoveNet(TFLite) · Firebase Cloud Messaging</dd>
+            <dt>개선</dt><dd>1차 버전의 배경 차분 낙상 판정을 관절 좌표 기반 "의심 → 확인" 2단계 판정으로 바꿨습니다.</dd>
           </dl>
-          <p class="proof"><b>핵심 장면</b> · 한 번 크게 움직였다고 바로 알리지 않도록, 의심 뒤 4프레임 안에 몸이 수평이고 코가 엉덩이보다 아래일 때만 낙상으로 확정합니다.</p>
+          <p class="proof"><b>핵심 장면</b> · 노인의 부정확한 발음도 알아듣도록, 오프라인 키워드 감지와 비슷한 발음 목록에 가중치를 준 STT를 결합한 하이브리드 호출어 인식을 만들었습니다.</p>
           <div class="linkrow">
             <a class="btn primary" href="projects/ai-speaker.html">상세 보기</a>
             <span class="btn off">GitHub 비공개</span>
@@ -152,7 +154,7 @@
       </div>
       <ol class="mini-path">
         <li class="mp"><span class="step-no">1</span><span class="when">2024 · 대학</span><h3>동작하는 코드</h3><p>ESP32 실습 16개, MQTT IoT 팀 프로젝트. 웹 업로드 위주라 작업 기록이 남지 않았습니다.</p></li>
-        <li class="mp"><span class="step-no">2</span><span class="when">2025 · 대학 · 졸업 작품</span><h3>AI를 기능에 붙이기</h3><p>음성 비서·낙상 감지. 성능을 무작위 분할 검증셋으로만 확인했습니다.</p></li>
+        <li class="mp"><span class="step-no">2</span><span class="when">2025 · 대학 · 졸업 작품</span><h3>AI를 기능에 붙이기</h3><p>4인 팀 졸업 작품에서 음성 비서·낙상 알림 담당. 성능을 무작위 분할 검증셋으로만 확인했습니다.</p></li>
         <li class="mp"><span class="step-no">3</span><span class="when">2026.08 · 졸업 후</span><h3>구조와 자동 검증</h3><p>4개 컨테이너 분리, 규칙 있는 커밋 80%, 테스트 112개와 CI.</p></li>
         <li class="mp"><span class="step-no">4</span><span class="when">2026.09 · 4인 팀</span><h3>협업과 실측</h3><p>세션 단위 평가와 신뢰구간, 브랜치·계약·인수 테스트 협업, RPi5 실측.</p></li>
       </ol>
@@ -193,6 +195,39 @@
     </div>
   </section>
 
+  <section id="edu">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">학력 · 자격증</span>
+        <h2>학력 · 자격증</h2>
+      </div>
+      <div class="edu">
+        <div class="edu-main">
+          <span class="role-k">EDUCATION</span>
+          <b>한국공학대학교 전자공학부 · 임베디드시스템공학과</b>
+          <p>학사 · 2026.02 졸업</p>
+          <p class="edu-thesis">졸업논문 「AI를 활용한 독거노인 관리 시스템」 · 4인 팀</p>
+        </div>
+        <div class="edu-cert">
+          <span class="role-k">CERTIFICATIONS</span>
+          <dl class="contact-list">
+            <dt>2025.12</dt><dd>정보처리기사 · 한국산업인력공단</dd>
+            <dt>2025.07</dt><dd>컴퓨터활용능력 1급 · 대한상공회의소</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="courses" aria-label="관련 수강 과목">
+        <span class="role-k">RELEVANT COURSEWORK</span>
+        <div class="course-grid">
+          <div><b>AI · 머신러닝</b><p>머신러닝의이해 · 인공지능설계실습1·2 · 선형대수학</p></div>
+          <div><b>비전 · 임베디드</b><p>임베디드비전시스템 · 임베디드응용SW · 고급임베디드시스템 · 임베디드시스템구조론 · 임베디드프로세서1</p></div>
+          <div><b>신호 처리</b><p>이산신호처리 · 신호및시스템</p></div>
+          <div><b>프로그래밍</b><p>파이썬 · 파이썬프로그래밍 · 자료구조 및 알고리즘</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="contact">
     <div class="wrap">
       <div class="sec-head">
@@ -200,6 +235,7 @@
         <h2>연락처</h2>
       </div>
       <dl class="contact-list">
+        <dt>Email</dt><dd><a href="mailto:lpjhh0320@gmail.com">lpjhh0320@gmail.com</a></dd>
         <dt>GitHub</dt><dd><a href="https://github.com/Lee35678">github.com/Lee35678</a></dd>
       </dl>
     </div>
