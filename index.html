@@ -19,8 +19,7 @@
       <a href="#featured">대표 프로젝트</a>
       <a href="#path">성장 과정</a>
       <a href="#skills">기술</a>
-      <a href="#edu">학력</a>
-      <a href="#contact">연락처</a>
+      <a href="#edu">학력·연락처</a>
     </nav>
   </div>
 </header>
@@ -60,25 +59,25 @@
               <text x="97" y="28">12</text><text x="134" y="44">16</text><text x="166" y="80">20</text>
             </g>
           </svg>
-          <figcaption>hand landmarks · 21 points</figcaption>
+          <figcaption>MediaPipe Hand Landmarks · SafeSign</figcaption>
         </figure>
       </div>
 
       <ul class="points">
         <li class="point">
           <h2>좋은 점수부터 의심합니다</h2>
-          <p>첫 학습 결과가 너무 좋아 데이터를 조사했고, 같은 촬영 세션이 학습과 시험에 함께 들어간 것을 찾았습니다.</p>
-          <p class="fig">98.81% → 실제 77.57% → 개선 후 88.68%</p>
+          <p>첫 학습 결과가 너무 좋아 데이터를 조사했고, 같은 촬영 세션이 학습과 시험에 섞인 데이터 누수를 찾아 평가 방법을 다시 설계했습니다.</p>
+          <p class="fig">98.81%(데이터 누수) → 88.68%(세션 단위 평가)</p>
         </li>
         <li class="point">
           <h2>실물 장치까지 연결합니다</h2>
           <p>카메라 판정이 로봇 손·micro:bit·주행 로봇·휴대폰 알림으로 이어지는 경로를 직접 구현했습니다.</p>
-          <p class="fig">RPi5 26.6fps · 판정 지연 P95 0.046초</p>
+          <p class="fig">라즈베리파이 5 · 초당 26.6프레임</p>
         </li>
         <li class="point">
           <h2>과정이 남는 방식으로 일합니다</h2>
           <p>4인 팀에서 인터페이스 계약·서비스별 브랜치·인수 테스트로 작업을 나누고 합쳤습니다.</p>
-          <p class="fig">브랜치 9개 · 병합 30회 · 인수 테스트 22개</p>
+          <p class="fig">4인 팀 · 인수 테스트 22개 통과</p>
         </li>
       </ul>
     </div>
@@ -98,9 +97,9 @@
           <p class="one">크레인 수신호 7종을 카메라로 판정하고, 결과를 로봇 손·micro:bit·주행 로봇의 동작으로 돌려주는 교육 시스템입니다.</p>
           <dl>
             <dt>문제</dt><dd>공개 데이터만으로 학습해야 했고, 판정은 라즈베리파이 5 CPU에서 실시간으로 돌아야 했습니다. 처음 보는 손 모양을 틀리게 판정하지 않는 것도 중요했습니다.</dd>
-            <dt>내 역할</dt><dd>비전 파이프라인 설계·학습, 데이터 분할 전략, 판정 성능 측정, 웹 백엔드 판정 로직, 1차 통합 병합</dd>
+            <dt>내 역할</dt><dd><ul class="role-bul"><li>비전 파이프라인 설계·모델 학습</li><li>데이터 분할·평가 전략 설계</li><li>판정 성능 측정·검증</li><li>웹 백엔드 판정 로직 구현</li><li>1차 통합 병합·저장소 구성</li></ul></dd>
             <dt>기술</dt><dd>MediaPipe · SVM · Raspberry Pi 5 · FastAPI · Supabase · Docker Compose</dd>
-            <dt>결과</dt><dd>정답률 95.2% · 오분류율 0.0% · Macro F1 0.974 (팀원 3명 촬영 210시도, 학습 미사용)</dd>
+            <dt>결과</dt><dd>학습에 쓰지 않은 210회 평가에서 정답률 95.2% · Macro F1 0.974 · 오분류 0건(95% 상한 1.8%)</dd>
           </dl>
           <p class="proof"><b>핵심 장면</b> · 정답률 98.81%가 데이터 누수 때문에 생긴 허수임을 찾아 세션 단위 분할로 다시 평가했습니다.</p>
           <div class="linkrow">
@@ -116,33 +115,32 @@
           <p class="one">카메라와 마이크로 혼자 사는 노인을 지켜보다가 넘어지면 바로 알리고, 음성으로 말을 걸면 답해 주는 말벗 AI 스피커입니다.</p>
           <dl>
             <dt>문제</dt><dd>65세 이상 인구가 20.4%(2025.03)에 이르고 고령자 1인 가구가 늘지만, 복지 지원은 지역에 따라 사각지대가 있습니다.</dd>
-            <dt>내 역할</dt><dd>음성 비서 시스템 전체(호출어·STT·RAG 답변·TTS)와 웹캠 낙상 감지·휴대폰 푸시 알림</dd>
+            <dt>내 역할</dt><dd><ul class="role-bul"><li>음성 비서 시스템 전체(호출어·STT·RAG 답변·TTS)</li><li>낙상 감지와 휴대폰 푸시 알림(03에서 자세히)</li></ul></dd>
             <dt>기술</dt><dd>Google Cloud STT/TTS · Porcupine · Gemini · 웹 검색 RAG · MoveNet(TFLite) · Firebase Cloud Messaging</dd>
-            <dt>개선</dt><dd>1차 버전의 배경 차분 낙상 판정을 관절 좌표 기반 "의심 → 확인" 2단계 판정으로 바꿨고, 학습 모델 후보(MobileNetV2 + LSTM)도 만들었습니다.</dd>
+            <dt>설계</dt><dd>클라우드 음성 합성·인증이 실패해도 스피커가 멈추지 않도록 단계별 대체 경로를 두었습니다.</dd>
           </dl>
           <p class="proof"><b>핵심 장면</b> · 노인의 부정확한 발음도 알아듣도록, 오프라인 키워드 감지와 비슷한 발음 목록에 가중치를 준 STT를 결합한 하이브리드 호출어 인식을 만들었습니다.</p>
           <div class="linkrow">
             <a class="btn primary" href="projects/ai-speaker.html">상세 보기</a>
             <a class="btn" href="https://github.com/Lee35678/AI_Speaker_new">GitHub · 개선판</a>
             <a class="btn" href="https://github.com/Lee35678/AI_Speaker">GitHub · 1차 버전</a>
-            <a class="btn" href="https://github.com/Lee35678/Fall_Detection">GitHub · 낙상 후보 모델</a>
           </div>
         </li>
 
         <li class="fp">
-          <div class="fp-head"><span class="fp-no">03</span><h3>실시간 손동작 인식 원격 드로잉 보드</h3><span class="chip">2026.08</span><span class="chip strong">졸업 후 · 구조와 자동 검증</span></div>
-          <p class="one">휴대폰 카메라에 손을 비추면 PC 화면의 캔버스에 그림이 그려지는 비접촉 드로잉 보드입니다. 검지는 그리기, 검지+중지는 지우기, 엄지 개입은 확대·축소입니다.</p>
+          <div class="fp-head"><span class="fp-no">03</span><h3>카메라 낙상 감지</h3><span class="chip">2025.03 – 06</span><span class="chip">졸업 작품</span><span class="chip strong">규칙 판정 → 학습 모델</span></div>
+          <p class="one">졸업 작품의 낙상 감지를 맡아, 규칙 기반 판정에서 학습 모델 후보까지 세 가지 방식으로 만들어 봤습니다.</p>
           <dl>
-            <dt>문제</dt><dd>카메라 추론, 제스처 판정, 화면 렌더링이 한 덩어리면 어디가 느리고 어디가 틀렸는지 따로 확인하기 어렵습니다.</dd>
-            <dt>내 역할</dt><dd>4개 컨테이너 구조 설계·구현, 리팩토링, 테스트와 CI 구성</dd>
-            <dt>기술</dt><dd>MediaPipe Hand Landmarker · One Euro Filter · FastAPI · WebSocket · Docker Compose · pytest · GitHub Actions</dd>
-            <dt>결과</dt><dd>pytest 112개, ruff·mypy 통과를 CI로 자동 확인. 전처리·스무딩·직렬화 합계 p99 약 1.8ms(MediaPipe 추론 제외)</dd>
+            <dt>문제</dt><dd>넘어지는 순간은 놓치지 않으면서, 앉기·눕기 같은 일상 동작에는 알리지 않아야 했습니다.</dd>
+            <dt>내 역할</dt><dd><ul class="role-bul"><li>배경 차분 규칙 → MoveNet 관절 2단계 판정</li><li>MobileNetV2 + LSTM 학습 모델 후보</li><li>FCM 휴대폰 알림</li></ul></dd>
+            <dt>기술</dt><dd>OpenCV · MoveNet(TFLite) · TensorFlow/Keras · MobileNetV2 · LSTM · UBFC 데이터셋</dd>
+            <dt>결과</dt><dd>학습 모델 후보 검증 정확도 99.42% (영상 클립 무작위 분할 · 시험셋 없음)</dd>
           </dl>
-          <p class="proof"><b>핵심 장면</b> · 리팩토링 전에 베이스라인부터 재서 병렬화가 필요 없다는 근거를 숫자로 남겼고, 측정하지 못한 카메라 수치는 "미측정"으로 기록했습니다.</p>
+          <p class="proof"><b>배운 점</b> · 같은 장소·인물이 학습과 검증에 섞일 수 있는 분할이었습니다. 이 경험이 SafeSign에서 세션 단위 평가를 고집한 이유가 됐습니다.</p>
           <div class="linkrow">
-            <a class="btn" href="https://github.com/Lee35678/Real-time-Hand-Gesture-Recognition-Remote-Drawing-Board">GitHub</a>
-            <a class="btn" href="https://github.com/Lee35678/Real-time-Hand-Gesture-Recognition-Remote-Drawing-Board/blob/main/docs/00_baseline_metrics.md">베이스라인 측정</a>
-            <a class="btn" href="https://github.com/Lee35678/Real-time-Hand-Gesture-Recognition-Remote-Drawing-Board/blob/main/docs/contract.md">메시지 계약</a>
+            <a class="btn primary" href="projects/fall-detection.html">상세 보기</a>
+            <a class="btn" href="https://github.com/Lee35678/Fall_Detection">GitHub · 학습 모델 후보</a>
+            <a class="btn" href="https://github.com/Lee35678/AI_Speaker_new">GitHub · MoveNet 판정</a>
           </div>
         </li>
       </ol>
@@ -156,12 +154,11 @@
         <h2>단계마다 아쉬웠던 점을 다음 단계에서 고쳤습니다</h2>
       </div>
       <ol class="mini-path">
-        <li class="mp"><span class="step-no">1</span><span class="when">2024 · 대학</span><h3>동작하는 코드</h3><p>ESP32 실습 16개, MQTT IoT 팀 프로젝트. 웹 업로드 위주라 작업 기록이 남지 않았습니다.</p></li>
+        <li class="mp"><span class="step-no">1</span><span class="when">2024 · 대학</span><h3>동작하는 코드</h3><p>ESP32 센서·통신 실습과 MQTT IoT 팀 프로젝트로 임베디드 시스템의 기본 구조를 익혔습니다.</p></li>
         <li class="mp"><span class="step-no">2</span><span class="when">2025 · 대학 · 졸업 작품</span><h3>AI를 기능에 붙이기</h3><p>4인 팀 졸업 작품에서 음성 비서·낙상 알림 담당. 성능을 무작위 분할 검증셋으로만 확인했습니다.</p></li>
         <li class="mp"><span class="step-no">3</span><span class="when">2026.08 · 졸업 후</span><h3>구조와 자동 검증</h3><p>4개 컨테이너 분리, 규칙 있는 커밋 80%, 테스트 112개와 CI.</p></li>
         <li class="mp"><span class="step-no">4</span><span class="when">2026.09 · 4인 팀</span><h3>협업과 실측</h3><p>세션 단위 평가와 신뢰구간, 브랜치·계약·인수 테스트 협업, RPi5 실측.</p></li>
       </ol>
-      <p class="note">웹 화면 업로드 커밋 비율 96%(2024) → 75%(2025) → 0%(2026). 제 저장소 커밋 기록에서 직접 셌습니다.</p>
     </div>
   </section>
 
@@ -172,6 +169,7 @@
         <h2>그 밖의 프로젝트</h2>
       </div>
       <div class="others">
+        <div class="orow"><div><h3><a href="https://github.com/Lee35678/Real-time-Hand-Gesture-Recognition-Remote-Drawing-Board">실시간 손동작 인식 원격 드로잉 보드</a></h3><p>휴대폰 카메라 손동작으로 PC 캔버스에 그립니다. 4개 컨테이너 구조, pytest 112개와 GitHub Actions CI, 리팩토링 전 베이스라인 측정.</p></div><aside><b>2026.08 · 졸업 후</b>MediaPipe · FastAPI · WebSocket</aside></div>
         <div class="orow"><div><h3><a href="https://github.com/Lee35678/Real-time-OCR-based-text-extraction">StreamOCR</a></h3><p>브라우저 카메라 프레임을 WebSocket으로 받아 실시간 OCR. 최신 프레임 우선 큐와 별도 프로세스 풀 사용.</p></div><aside><b>2026.08 · 졸업 후</b>OpenCV · Tesseract · FastAPI</aside></div>
         <div class="orow"><div><h3><a href="https://github.com/Lee35678/AI_Agent">Physical AI 멀티 에이전트 조직</a></h3><p>총괄 PM 에이전트가 필요한 부서 에이전트에만 일을 나눠 보고서를 만듭니다.</p></div><aside><b>2026.08 · 졸업 후</b>CrewAI · Gemini · Docker</aside></div>
         <div class="orow"><div><h3><a href="https://github.com/Lee35678/iot_TeamProject">ESP32 · MQTT IoT 팀 프로젝트</a></h3><p>센서·릴레이·펌프 노드를 MQTT로 연결한 3인 팀 프로젝트(센서 노드·릴레이 노드·제어 서버 담당). 이 밖에 <a href="https://github.com/Lee35678?tab=repositories&amp;q=&amp;language=c%2B%2B">ESP32 펌웨어 실습 저장소</a>(GPIO·인터럽트·ADC 필터·TFT·Wi-Fi·웹 서버·캡티브 포털)가 있습니다.</p></div><aside><b>2024 · 대학</b>ESP32 · PlatformIO · MQTT</aside></div>
@@ -183,16 +181,20 @@
     <div class="wrap">
       <div class="sec-head">
         <span class="label">기술</span>
-        <h2>기술과 고른 이유</h2>
+        <h2>기술</h2>
+        <p>프로젝트에서 깊게 쓴 주력 기술과, 사용해 본 기술을 나눴습니다.</p>
       </div>
-      <div class="skills" role="table" aria-label="기술 스택과 사용 이유">
-        <div class="skill head" role="row"><span role="columnheader">분야</span><span role="columnheader">기술</span><span role="columnheader">왜 썼나</span></div>
-        <div class="skill" role="row"><h3 role="cell">컴퓨터 비전</h3><p class="tools" role="cell">MediaPipe · MoveNet · MobileNetV2 · OpenCV · picamera2</p><p class="why" role="cell">사진 대신 관절 좌표로 다루면 조명·배경 영향이 줄고, 라즈베리파이 CPU에서도 실시간으로 돌릴 수 있습니다.</p></div>
-        <div class="skill" role="row"><h3 role="cell">머신러닝</h3><p class="tools" role="cell">scikit-learn(SVM, 확률 보정, GroupKFold) · TensorFlow/Keras · TFLite</p><p class="why" role="cell">데이터가 적고 판정 근거를 설명해야 하면 SVM을, 움직임의 흐름을 봐야 하면 LSTM을 썼습니다. 딥러닝 전환은 같은 조건으로 비교한 뒤에 정했습니다.</p></div>
-        <div class="skill" role="row"><h3 role="cell">평가</h3><p class="tools" role="cell">세션 단위 분할 · Wilson 95% 신뢰구간 · open-set 평가</p><p class="why" role="cell">표본이 수백 건이면 점 하나로는 목표 달성을 말하기 어려워, 신뢰구간과 측정 조건을 함께 보고했습니다.</p></div>
-        <div class="skill" role="row"><h3 role="cell">백엔드</h3><p class="tools" role="cell">FastAPI · WebSocket · Supabase(PostgreSQL) · Firebase Cloud Messaging</p><p class="why" role="cell">서비스를 작은 API로 나누면 팀원이 계약만 보고 각자 개발할 수 있습니다. 알림은 앱이 토픽을 구독하는 FCM으로 보냈습니다.</p></div>
-        <div class="skill" role="row"><h3 role="cell">개발 방식</h3><p class="tools" role="cell">Git 브랜치 · Docker Compose · pytest · GitHub Actions · ruff · mypy</p><p class="why" role="cell">여러 서비스를 한 명령으로 띄우고, 고친 코드가 기존 동작을 깨지 않았는지 자동으로 확인하려고 썼습니다.</p></div>
-        <div class="skill" role="row"><h3 role="cell">임베디드</h3><p class="tools" role="cell">Raspberry Pi 5 · Raspberry Pi 4B · ESP32 · PlatformIO · MQTT</p><p class="why" role="cell">카메라 보드와 주행 보드를 나눠 움직이는 장치가 카메라를 흔들지 않게 했고, 센서 노드가 많은 IoT에서는 MQTT로 묶었습니다.</p></div>
+      <div class="core" role="table" aria-label="주력 기술">
+        <div class="core-row" role="row"><b role="cell">Python</b><span role="cell">모든 프로젝트의 주 언어. 학습·평가 스크립트, 서비스, 장치 연동</span></div>
+        <div class="core-row" role="row"><b role="cell">MediaPipe · OpenCV</b><span role="cell">사진 대신 관절 좌표로 다뤄 조명·배경 영향을 줄이고 라즈베리파이에서도 실시간으로 처리 · SafeSign, 드로잉 보드</span></div>
+        <div class="core-row" role="row"><b role="cell">scikit-learn</b><span role="cell">데이터가 적고 판정 근거를 설명해야 할 때 SVM, 확률 보정, 세션 단위 GroupKFold · SafeSign</span></div>
+        <div class="core-row" role="row"><b role="cell">TensorFlow / Keras</b><span role="cell">움직임의 흐름을 보는 시퀀스 모델(LSTM), MoveNet TFLite 추론 · 낙상 감지</span></div>
+        <div class="core-row" role="row"><b role="cell">Raspberry Pi</b><span role="cell">CSI 카메라 실시간 판정, 카메라 보드와 주행 보드 분리 · SafeSign</span></div>
+        <div class="core-row" role="row"><b role="cell">Git · GitHub</b><span role="cell">서비스별 브랜치와 통합 브랜치, 인수 테스트로 작업 넘겨받기 · SafeSign</span></div>
+      </div>
+      <div class="exp">
+        <span class="role-k">EXPERIENCE</span>
+        <div class="exp-chips"><span>FastAPI</span><span>WebSocket</span><span>TFLite</span><span>Docker Compose</span><span>pytest</span><span>GitHub Actions</span><span>Supabase(PostgreSQL)</span><span>Firebase Cloud Messaging</span><span>Gemini API</span><span>Google Cloud STT/TTS</span><span>MQTT</span><span>ESP32 · PlatformIO</span></div>
       </div>
     </div>
   </section>
@@ -200,8 +202,8 @@
   <section id="edu">
     <div class="wrap">
       <div class="sec-head">
-        <span class="label">학력 · 자격증</span>
-        <h2>학력 · 자격증</h2>
+        <span class="label">학력 · 자격증 · 연락처</span>
+        <h2>학력 · 연락처</h2>
       </div>
       <div class="edu">
         <div class="edu-main">
@@ -215,6 +217,11 @@
           <dl class="contact-list">
             <dt>2025.12</dt><dd>정보처리기사 · 한국산업인력공단</dd>
             <dt>2025.07</dt><dd>컴퓨터활용능력 1급 · 대한상공회의소</dd>
+          </dl>
+          <span class="role-k" style="margin-top:16px;display:block">CONTACT</span>
+          <dl class="contact-list">
+            <dt>Email</dt><dd><a href="mailto:lpjhh0320@gmail.com">lpjhh0320@gmail.com</a></dd>
+            <dt>GitHub</dt><dd><a href="https://github.com/Lee35678">github.com/Lee35678</a></dd>
           </dl>
         </div>
       </div>
@@ -230,19 +237,7 @@
     </div>
   </section>
 
-  <section id="contact">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="label">연락처</span>
-        <h2>연락처</h2>
-      </div>
-      <dl class="contact-list">
-        <dt>Email</dt><dd><a href="mailto:lpjhh0320@gmail.com">lpjhh0320@gmail.com</a></dd>
-        <dt>GitHub</dt><dd><a href="https://github.com/Lee35678">github.com/Lee35678</a></dd>
-      </dl>
-    </div>
-  </section>
-</main>
+/main>
 
 <footer>
   <div class="wrap">
