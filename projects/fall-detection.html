@@ -18,8 +18,6 @@
     <nav aria-label="목차">
       <a href="#approaches">세 가지 방식</a>
       <a href="#pipeline">학습 모델</a>
-      <a href="#result">결과</a>
-      <a href="#review">돌아보기</a>
     </nav>
   </div>
 </header>
@@ -53,10 +51,10 @@
       <div class="block" id="approaches">
         <h3>세 가지 방식</h3>
         <div class="vt" role="table" aria-label="낙상 감지 방식 비교">
-          <div class="vt-row head" role="row"><span role="columnheader">방식</span><span role="columnheader">어떻게 판단하나</span><span role="columnheader">한계 · 다음 방식으로 넘어간 이유</span></div>
-          <div class="vt-row" role="row"><b role="cell">① 배경 차분 규칙<br><span class="mono" style="font-weight:400;color:var(--muted);font-size:0.8125rem">2025.03</span></b><span class="v1" role="cell">움직이는 영역의 경계 상자 높이/너비 비율이 0.5 미만으로 2초 이상 지속되면 낙상</span><span class="v2" role="cell">사람이 아닌 움직임에도 반응하고, 몸의 자세를 직접 보지 못합니다.</span></div>
-          <div class="vt-row" role="row"><b role="cell">② MoveNet 관절 규칙<br><span class="mono" style="font-weight:400;color:var(--muted);font-size:0.8125rem">2025.05 – 06</span></b><span class="v1" role="cell">코의 낙폭과 몸통 각도 변화로 의심한 뒤, 4프레임 안에 몸이 수평이고 코가 엉덩이보다 아래이면 확정. 확정되면 FCM으로 휴대폰에 알림</span><span class="v2" role="cell">임계값을 사람이 정하는 규칙이라, 넘어지는 모양이 다양하면 대응하기 어렵습니다.</span></div>
-          <div class="vt-row" role="row"><b role="cell">③ 학습 모델 후보<br><span class="mono" style="font-weight:400;color:var(--muted);font-size:0.8125rem">2025.06</span></b><span class="v1" role="cell">MobileNetV2로 프레임 특징을 뽑고, 32프레임 흐름을 LSTM으로 분류</span><span class="v2" role="cell">무작위 분할 검증만 했고, 픽셀 특징이라 조명·배경 영향을 받습니다. 최종 모델은 관절 좌표 입력으로 바뀌었습니다.</span></div>
+          <div class="vt-row head" role="row"><span role="columnheader">방식</span><span role="columnheader">어떻게 판단하나</span><span role="columnheader">다음 방식으로 넘어간 이유</span></div>
+          <div class="vt-row" role="row"><b role="cell">① 배경 차분 규칙<br><span class="mono" style="font-weight:400;color:var(--muted);font-size:0.8125rem">2025.03</span></b><span class="v1" role="cell">움직이는 영역의 경계 상자 높이/너비 비율이 0.5 미만으로 2초 이상 지속되면 낙상</span><span class="v2" role="cell">사람이 아닌 움직임에도 반응해, 몸의 자세를 직접 보는 관절 기반 판정으로 바꿨습니다.</span></div>
+          <div class="vt-row" role="row"><b role="cell">② MoveNet 관절 규칙<br><span class="mono" style="font-weight:400;color:var(--muted);font-size:0.8125rem">2025.05 – 06</span></b><span class="v1" role="cell">코의 낙폭과 몸통 각도 변화로 의심한 뒤, 4프레임 안에 몸이 수평이고 코가 엉덩이보다 아래이면 확정. 확정되면 FCM으로 휴대폰에 알림</span><span class="v2" role="cell">넘어지는 모양이 다양해 사람이 정한 규칙만으로는 한계가 있어, 데이터로 학습하는 방식을 시도했습니다.</span></div>
+          <div class="vt-row" role="row"><b role="cell">③ 학습 모델 후보<br><span class="mono" style="font-weight:400;color:var(--muted);font-size:0.8125rem">2025.06</span></b><span class="v1" role="cell">MobileNetV2로 프레임 특징을 뽑고, 32프레임 흐름을 LSTM으로 분류</span><span class="v2" role="cell">최종 모델은 조명·배경 영향이 적은 관절 좌표 입력의 Bi-LSTM으로 정해졌습니다(졸업논문 4장).</span></div>
         </div>
       </div>
 
@@ -74,34 +72,6 @@
         <p class="note">학습 설정 · Adam, binary cross-entropy, batch 4, 15 epoch, 검증 정확도가 가장 높은 모델을 저장.</p>
       </div>
 
-      <div class="block" id="result">
-        <h3>결과</h3>
-        <p>학습 모델 후보의 검증 정확도 <span class="num">99.42%</span>, 검증 손실 <span class="num">0.0196</span></p>
-        <div class="cond" aria-label="측정 조건">
-          <div><span>데이터</span><b>UBFC Fall Detection Dataset</b></div>
-          <div><span>분할</span><b>영상 클립 무작위 8:2</b></div>
-          <div><span>시험셋</span><b>없음 · 검증셋 결과</b></div>
-        </div>
-      </div>
-
-      <div class="two" id="review">
-        <div class="block">
-          <h3>돌아보기</h3>
-          <ul class="plain-list">
-            <li>클립 단위 무작위 분할이라 같은 장소·같은 인물의 클립이 학습과 검증에 함께 들어갈 수 있습니다. 99.42%는 처음 보는 환경에서의 성능이 아닙니다.</li>
-            <li>모델 파일을 못 읽으면 학습되지 않은 더미 모델로 조용히 실행되는 경로가 있었습니다. 결과가 틀려도 알아차리기 어렵습니다.</li>
-            <li>영상을 프레임 묶음으로 바꾸는 스크립트가 저장소에 없어, 같은 결과를 다시 만들기 어렵습니다.</li>
-          </ul>
-        </div>
-        <div class="block">
-          <h3>이후 프로젝트로 이어진 것</h3>
-          <ul class="plain-list">
-            <li>SafeSign에서는 첫 결과 98.81%를 보고 같은 문제를 먼저 의심했고, 세션 단위로 나눠 실제 77.57%를 찾았습니다.</li>
-            <li>최종 성능은 학습에 쓰지 않은 데이터로, 결과를 보기 전에 규칙을 정하고 신뢰구간과 함께 보고했습니다.</li>
-            <li>모델이 없을 때는 조용히 넘어가지 않고 거부 이유(model_not_loaded)를 응답에 남기게 했습니다.</li>
-          </ul>
-        </div>
-      </div>
     </article>
 
     <nav class="next-page" aria-label="다른 프로젝트">

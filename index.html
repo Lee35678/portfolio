@@ -134,9 +134,9 @@
             <dt>문제</dt><dd>넘어지는 순간은 놓치지 않으면서, 앉기·눕기 같은 일상 동작에는 알리지 않아야 했습니다.</dd>
             <dt>내 역할</dt><dd><ul class="role-bul"><li>배경 차분 규칙 → MoveNet 관절 2단계 판정</li><li>MobileNetV2 + LSTM 학습 모델 후보</li><li>FCM 휴대폰 알림</li></ul></dd>
             <dt>기술</dt><dd>OpenCV · MoveNet(TFLite) · TensorFlow/Keras · MobileNetV2 · LSTM · UBFC 데이터셋</dd>
-            <dt>결과</dt><dd>학습 모델 후보 검증 정확도 99.42% (영상 클립 무작위 분할 · 시험셋 없음)</dd>
+            <dt>결과</dt><dd>규칙 판정은 휴대폰 알림까지 연결했고, 학습 모델 후보는 웹캠 실시간 판정까지 구현했습니다.</dd>
           </dl>
-          <p class="proof"><b>배운 점</b> · 같은 장소·인물이 학습과 검증에 섞일 수 있는 분할이었습니다. 이 경험이 SafeSign에서 세션 단위 평가를 고집한 이유가 됐습니다.</p>
+          <p class="proof"><b>핵심 장면</b> · 배경 차분 규칙에서 관절 판정, 학습 모델까지 방식을 바꿔 가며 각 방식의 장단점을 직접 확인했습니다.</p>
           <div class="linkrow">
             <a class="btn primary" href="projects/fall-detection.html">상세 보기</a>
             <a class="btn" href="https://github.com/Lee35678/Fall_Detection">GitHub · 학습 모델 후보</a>
@@ -151,12 +151,12 @@
     <div class="wrap">
       <div class="sec-head">
         <span class="label">성장 과정</span>
-        <h2>단계마다 아쉬웠던 점을 다음 단계에서 고쳤습니다</h2>
+        <h2>프로젝트마다 한 단계씩 넓혀 왔습니다</h2>
       </div>
       <ol class="mini-path">
         <li class="mp"><span class="step-no">1</span><span class="when">2024 · 대학</span><h3>동작하는 코드</h3><p>ESP32 센서·통신 실습과 MQTT IoT 팀 프로젝트로 임베디드 시스템의 기본 구조를 익혔습니다.</p></li>
-        <li class="mp"><span class="step-no">2</span><span class="when">2025 · 대학 · 졸업 작품</span><h3>AI를 기능에 붙이기</h3><p>4인 팀 졸업 작품에서 음성 비서·낙상 알림 담당. 성능을 무작위 분할 검증셋으로만 확인했습니다.</p></li>
-        <li class="mp"><span class="step-no">3</span><span class="when">2026.08 · 졸업 후</span><h3>구조와 자동 검증</h3><p>4개 컨테이너 분리, 규칙 있는 커밋 80%, 테스트 112개와 CI.</p></li>
+        <li class="mp"><span class="step-no">2</span><span class="when">2025 · 대학 · 졸업 작품</span><h3>AI를 기능에 붙이기</h3><p>4인 팀 졸업 작품에서 음성 비서·낙상 감지를 맡아 AI를 실제 기능으로 연결했습니다.</p></li>
+        <li class="mp"><span class="step-no">3</span><span class="when">2026.08 · 졸업 후</span><h3>구조와 자동 검증</h3><p>4개 컨테이너 분리, 테스트 112개와 GitHub Actions CI.</p></li>
         <li class="mp"><span class="step-no">4</span><span class="when">2026.09 · 4인 팀</span><h3>협업과 실측</h3><p>세션 단위 평가와 신뢰구간, 브랜치·계약·인수 테스트 협업, RPi5 실측.</p></li>
       </ol>
     </div>

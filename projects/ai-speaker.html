@@ -19,7 +19,6 @@
       <a href="#role">역할</a>
       <a href="#voice">음성 비서</a>
       <a href="#fall">낙상 알림</a>
-      <a href="#limits">한계</a>
     </nav>
   </div>
 </header>
@@ -101,29 +100,16 @@
       </div>
 
       <div class="block" id="candidate">
-        <h3>낙상 감지 학습 모델 · 처음 시도한 후보</h3>
-        <p>규칙 기반 판단과 별개로, 졸업 작품의 낙상 감지 모델을 만들기 위해 처음에는 사전학습 MobileNetV2로 프레임 특징을 뽑아 32프레임 시퀀스를 LSTM으로 분류하는 방식을 시도했습니다. UBFC 데이터셋 검증 정확도는 99.42%였지만, 영상 클립을 무작위로 나눈 결과라 처음 보는 환경의 성능으로 볼 수 없었습니다. 최종 모델은 관절 좌표 입력의 Bi-LSTM으로 바뀌었습니다(논문 4장).</p>
+        <h3>낙상 감지 학습 모델 후보</h3>
+        <p>규칙 기반 판단과 함께, 졸업 작품의 학습형 낙상 모델 후보로 사전학습 MobileNetV2로 프레임 특징을 뽑아 32프레임 흐름을 LSTM으로 분류하는 방식을 만들었습니다. 최종 모델은 관절 좌표 입력의 Bi-LSTM으로 정해졌습니다(논문 4장).</p>
         <div class="linkrow" style="margin-top:12px"><a class="btn" href="fall-detection.html">카메라 낙상 감지 페이지 보기</a></div>
       </div>
 
-      <div class="two" id="limits">
-        <div class="block">
-          <h3>한계</h3>
-          <ul class="plain-list">
-            <li>제가 만든 낙상 판단은 관절 좌표에 대한 임계값 규칙이고, 오탐·미탐 비율을 시험 데이터로 재지 않았습니다.</li>
-            <li>한 사람만 추적합니다.</li>
-            <li>알림 모듈은 지원이 종료된 FCM 레거시 API를 써서, 지금 쓰려면 HTTP v1 API로 바꿔야 합니다.</li>
-            <li>음성 인식에는 대체 경로가 없어 클라우드 인증이 없으면 반응하지 않습니다.</li>
-          </ul>
-        </div>
-        <div class="block">
-          <h3>이후 프로젝트로 이어진 것</h3>
-          <ul class="plain-list">
-            <li>"얼마나 잘 맞는지 재지 않았다"는 한계가, SafeSign에서 학습에 쓰지 않은 데이터로 KPI를 재고 신뢰구간과 함께 보고하는 방식으로 이어졌습니다.</li>
-            <li>모듈이 실패해도 서비스가 멈추지 않게 하는 설계는 SafeSign 비전 서비스(모델·카메라가 없어도 원인을 남기고 계속 동작)에서도 이어졌습니다.</li>
-            <li>이 저장소에서 브랜치와 PR을 처음 써 봤습니다.</li>
-          </ul>
-        </div>
+      <div class="block">
+        <h3>이후 프로젝트로 이어진 것</h3>
+        <ul class="plain-list">
+          <li>모듈 하나가 실패해도 전체 서비스가 멈추지 않게 하는 설계를, SafeSign 비전 서비스(모델·카메라가 없어도 원인을 남기고 계속 동작)에서도 이어 갔습니다.</li>
+        </ul>
       </div>
     </article>
 
